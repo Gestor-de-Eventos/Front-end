@@ -15,6 +15,13 @@ export function Registrar() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [watchPassword, setWatchPassword] = useState(false);
+
+  const typePassoword = watchPassword ? "text" : "password";
+  const eyePassword = watchPassword
+    ? "fa-solid fa-eye cursor-pointer hover:bg-sitenary-color rounded-full"
+    : "fa-solid fa-eye-slash cursor-pointer hover:bg-sitenary-color rounded-full";
+
   const handleChangeRegisterUser = (e) => {
     const { name, value } = e.target;
     setRegisterUsers((prevDataRegisterUsers) => {
@@ -192,7 +199,7 @@ export function Registrar() {
                 <div>
                   <label
                     htmlFor="id"
-                    className="block mb-2 text-base font-bold text-primary "
+                    className="block mb-2 text-base font-bold text-primary"
                   >
                     Telefono
                   </label>
@@ -207,23 +214,31 @@ export function Registrar() {
                   />
                 </div>
               </div>
-              <div className="mb-4">
+              <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
                   className="block mb-2 text-base font-bold text-primary"
                 >
                   Contraseña
                 </label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  onChange={handleChangeRegisterUser}
-                  value={registerUsers.password}
-                  placeholder="Ingresa tu contraseña"
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
-                  required
-                />
+              </div>
+              <div className="mt-2">
+                <div className="relative shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg px-2.5 py-3">
+                  <input
+                    id="password"
+                    name="password"
+                    type={typePassoword}
+                    value={registerUsers.password}
+                    onChange={handleChangeRegisterUser}
+                    placeholder="Ingrese su contraseña"
+                    className="w-full bg-gray-50 border-0 text-quaternary-color pr-10 focus:outline-none"
+                  />
+                  <i
+                    className={`${eyePassword} absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer`}
+                    aria-hidden={watchPassword ? "false" : "true"}
+                    onClick={() => setWatchPassword(!watchPassword)}
+                  ></i>
+                </div>
               </div>
               <div className="flex justify-center text-center">
                 {successMessage && (
