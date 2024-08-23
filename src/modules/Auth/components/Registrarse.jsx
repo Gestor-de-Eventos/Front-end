@@ -98,6 +98,7 @@ export function Registrar() {
                 <select
                   id="role"
                   value={registerUsers.role}
+                  name="role"
                   onChange={handleChangeRegisterUser}
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                 >
