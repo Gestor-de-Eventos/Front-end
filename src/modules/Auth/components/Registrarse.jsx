@@ -1,3 +1,4 @@
+import logoVerde from "../../../assets/img/logo-verde.png";
 export function Registrar() {
   return (
     <div className="flex flex-col items-center justify-center py-4 px-4 gap-6 max-w-96 m-auto">
@@ -17,7 +18,7 @@ export function Registrar() {
       </a>
       <header>
         <img
-          src="../src/assets/img/logo-verde.png"
+          src={logoVerde.src}
           className="h-16 md:h-16"
           alt="Logo Blanco SENA"
         />

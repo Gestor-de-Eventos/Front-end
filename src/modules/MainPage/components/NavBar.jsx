@@ -1,10 +1,11 @@
+import logoBlanco from "../../../assets/img/logo-blanco.png";
 export default function NavBar() {
   return (
     <nav className="bg-secondary sticky top-0 w-full z-20 start-0 ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-3 py-2">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
-            src="src/assets/img/logo-blanco.png"
+            src={logoBlanco.src}
             className="h-8 md:h-12"
             alt="Logo Blanco SENA"
           />

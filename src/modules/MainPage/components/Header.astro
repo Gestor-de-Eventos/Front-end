@@ -1,12 +1,17 @@
+---
+import { Image } from "astro:assets";
+import logoBlanco from "../../../assets/img/logo-blanco.png";
+---
+
 <div>
   <nav class="bg-primary">
     <div
       class="relative max-w-screen-xl flex items-center justify-center mx-auto p-2"
     >
       <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img
-          src="src/assets/img/logo-blanco.png"
-          class="h-7 md:h-8"
+        <Image
+          src={logoBlanco}
+          class="h-7 md:h-8 w-auto"
           alt="Logo Blanco SENA"
         />
         <span
