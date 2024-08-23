@@ -11,18 +11,28 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="/logo-negro.png"
       rel="icon"
+      type="image/png"
+      href="../img/logo-negro.png"
       media="(prefers-color-scheme: light)"
     />
     <link
-      href="/logo-blanco.png"
       rel="icon"
+      type="image/png"
+      href="../img/logo-blanco.png"
       media="(prefers-color-scheme: dark)"
     />
-    <meta name="generator" content={Astro.generator} />
+    <meta property="og:title" content="Gestor de eventos SENA" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="src/assets/img/logo.png" />
+    <meta property="og:image:alt" content="Logo Gestor de eventos SENA" />
+    <meta
+      property="og:description"
+      content="Sede Rionegro - Centro de la Innovacion, la Agroindustria y la Aviacion SENA"
+    />
+
     <script
       src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"
     ></script>
@@ -35,35 +45,35 @@ const { title } = Astro.props;
 <style>
   @font-face {
     font-family: "Montserrat";
-    src: url("/fonts/Montserrat-Hairline.otf") format("opentype");
+    src: url("../fonts/Montserrat-Hairline.otf") format("opentype");
     font-weight: 100;
     font-style: normal;
   }
 
   @font-face {
     font-family: "Montserrat";
-    src: url("/fonts/Montserrat-Light.otf") format("opentype");
+    src: url("../fonts/Montserrat-Light.otf") format("opentype");
     font-weight: 300;
     font-style: normal;
   }
 
   @font-face {
     font-family: "Montserrat";
-    src: url("/fonts/Montserrat-Regular.otf") format("opentype");
+    src: url("../fonts/Montserrat-Regular.otf") format("opentype");
     font-weight: 400;
     font-style: normal;
   }
 
   @font-face {
     font-family: "Montserrat";
-    src: url("/fonts/Montserrat-Bold.otf") format("opentype");
+    src: url("../fonts/Montserrat-Bold.otf") format("opentype");
     font-weight: 700;
     font-style: normal;
   }
 
   @font-face {
     font-family: "Montserrat";
-    src: url("/fonts/Montserrat-Black.otf") format("opentype");
+    src: url("../fonts/Montserrat-Black.otf") format("opentype");
     font-weight: 900;
     font-style: normal;
   }
