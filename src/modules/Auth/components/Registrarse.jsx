@@ -1,5 +1,62 @@
+import { useState } from "react";
 import logoVerde from "../../../assets/img/logo-verde.png";
+
 export function Registrar() {
+  const [registerUsers, setRegisterUsers] = useState({
+    document: "",
+    name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    role: "Instructor" || "Coordinador",
+    password: "",
+  });
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleChangeRegisterUser = (e) => {
+    const { name, value } = e.target;
+    setRegisterUsers((prevDataRegisterUsers) => {
+      const newDataRegisterUsers = {
+        ...prevDataRegisterUsers,
+        [name]: value,
+      };
+      return newDataRegisterUsers;
+    });
+  };
+
+  const handleSubmitRegisterUsers = async (e) => {
+    e.preventDefault();
+    const { document, phone, ...restRegisterUsers } = registerUsers;
+    const dataToSend = {
+      ...restRegisterUsers,
+      document: parseInt(document),
+      phone: parseInt(phone),
+    };
+    try {
+      const responseRegisterUsers = await fetch(
+        "https://eventos.sharepointeros.com/api/users/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataToSend),
+        }
+      );
+      const dataRegisterUsers = await responseRegisterUsers.json();
+      console.log(dataRegisterUsers);
+      if (responseRegisterUsers.status === 200) {
+        setSuccessMessage("Usuario registrado correctamente");
+      } else {
+        setErrorMessage(dataRegisterUsers.message);
+      }
+    } catch {
+      setErrorMessage("Error al registrar el usuario");
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center py-4 px-4 gap-6 max-w-96 m-auto">
       <a
@@ -30,7 +87,7 @@ export function Registrar() {
             <h1 className="text-4xl font-bold text-center">Crea tu cuenta</h1>
           </div>
           <div>
-            <form class="w-full mx-auto">
+            <form class="w-full mx-auto" onSubmit={handleSubmitRegisterUsers}>
               <div className="mb-4">
                 <label
                   for="role"
@@ -40,11 +97,32 @@ export function Registrar() {
                 </label>
                 <select
                   id="role"
+                  value={registerUsers.role}
+                  onChange={handleChangeRegisterUser}
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                 >
-                  <option value="coordinador">Coordinador</option>
-                  <option value="instructor">Instructor</option>
+                  <option value="Coordinador">Coordinador</option>
+                  <option value="Instructor">Instructor</option>
                 </select>
+              </div>
+
+              <div class="mb-5">
+                <label
+                  for="id"
+                  class="block mb-2 text-base font-bold text-primary "
+                >
+                  Documento
+                </label>
+                <input
+                  type="number"
+                  id="document"
+                  name="document"
+                  onChange={handleChangeRegisterUser}
+                  value={registerUsers.document}
+                  placeholder="Ingresa tu documento"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                  required
+                />
               </div>
 
               <div class="mb-5">
@@ -57,11 +135,15 @@ export function Registrar() {
                 <input
                   type="text"
                   id="names"
+                  name="name"
+                  onChange={handleChangeRegisterUser}
+                  value={registerUsers.name}
                   placeholder="Ingresa tus nombres"
                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   required
                 />
               </div>
+
               <div class="mb-5">
                 <label
                   for="id"
@@ -71,11 +153,51 @@ export function Registrar() {
                 </label>
                 <input
                   type="text"
+                  name="last_name"
+                  onChange={handleChangeRegisterUser}
+                  value={registerUsers.last_name}
                   id="lastNames"
                   placeholder="Ingresa tus apellidos"
                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                 />
               </div>
+
+              <div class="mb-5">
+                <label
+                  for="id"
+                  class="block mb-2 text-base font-bold text-primary "
+                >
+                  Correo
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  onChange={handleChangeRegisterUser}
+                  value={registerUsers.email}
+                  id="email"
+                  placeholder="Ingresa tu correo  "
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                />
+              </div>
+
+              <div class="mb-5">
+                <label
+                  for="id"
+                  class="block mb-2 text-base font-bold text-primary "
+                >
+                  Telefono
+                </label>
+                <input
+                  type="number"
+                  onChange={handleChangeRegisterUser}
+                  value={registerUsers.phone}
+                  id="phone"
+                  name="phone"
+                  placeholder="Ingresa tu telefono"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                />
+              </div>
+
               <div class="mb-4">
                 <label
                   for="password"
@@ -86,12 +208,22 @@ export function Registrar() {
                 <input
                   type="password"
                   id="password"
+                  name="password"
+                  onChange={handleChangeRegisterUser}
+                  value={registerUsers.password}
                   placeholder="Ingresa tu contraseña"
                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   required
                 />
               </div>
-
+              <div className="flex justify-center text-center">
+                {successMessage && (
+                  <p className="text-green-500 text-sm">{successMessage}</p>
+                )}
+                {errorMessage && (
+                  <p className="text-red-500 text-sm">{errorMessage}</p>
+                )}
+              </div>
               <button
                 type="submit"
                 class="mt-4 w-full text-white bg-[#277400] hover:bg-[#277400] focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 text-center"

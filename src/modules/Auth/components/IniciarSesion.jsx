@@ -1,5 +1,7 @@
 import logoVerde from "../../../assets/img/logo-verde.png";
+
 export function IniciarSesion() {
+
   return (
     <div className="flex flex-col items-center justify-center py-4 px-4 gap-6 max-w-96 m-auto">
       <a
