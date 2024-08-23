@@ -87,122 +87,130 @@ export function Registrar() {
             <h1 className="text-4xl font-bold text-center">Crea tu cuenta</h1>
           </div>
           <div>
-            <form class="w-full mx-auto" onSubmit={handleSubmitRegisterUsers}>
+            <form
+              className="w-full mx-auto"
+              onSubmit={handleSubmitRegisterUsers}
+            >
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label
+                    htmlFor="role"
+                    className="block mb-2 text-base font-bold text-primary "
+                  >
+                    Selecciona tu rol
+                  </label>
+                  <select
+                    id="role"
+                    value={registerUsers.role}
+                    name="role"
+                    onChange={handleChangeRegisterUser}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                  >
+                    <option value="Coordinador">Coordinador</option>
+                    <option value="Instructor">Instructor</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="id"
+                    className="block mb-2 text-base font-bold text-primary "
+                  >
+                    Documento
+                  </label>
+                  <input
+                    type="number"
+                    id="document"
+                    name="document"
+                    onChange={handleChangeRegisterUser}
+                    value={registerUsers.document}
+                    placeholder="Ingresa tu documento"
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label
+                    htmlFor="id"
+                    className="block mb-2 text-base font-bold text-primary "
+                  >
+                    Nombres
+                  </label>
+                  <input
+                    type="text"
+                    id="names"
+                    name="name"
+                    onChange={handleChangeRegisterUser}
+                    value={registerUsers.name}
+                    placeholder="Ingresa tus nombres"
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="id"
+                    className="block mb-2 text-base font-bold text-primary "
+                  >
+                    Apellidos
+                  </label>
+                  <input
+                    type="text"
+                    name="last_name"
+                    onChange={handleChangeRegisterUser}
+                    value={registerUsers.last_name}
+                    id="lastNames"
+                    placeholder="Ingresa tus apellidos"
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label
+                    htmlFor="id"
+                    className="block mb-2 text-base font-bold text-primary "
+                  >
+                    Correo
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    onChange={handleChangeRegisterUser}
+                    value={registerUsers.email}
+                    id="email"
+                    placeholder="Ingresa tu correo  "
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="id"
+                    className="block mb-2 text-base font-bold text-primary "
+                  >
+                    Telefono
+                  </label>
+                  <input
+                    type="number"
+                    onChange={handleChangeRegisterUser}
+                    value={registerUsers.phone}
+                    id="phone"
+                    name="phone"
+                    placeholder="Ingresa tu telefono"
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                  />
+                </div>
+              </div>
               <div className="mb-4">
                 <label
-                  for="role"
-                  class="block mb-2 text-base font-bold text-primary "
-                >
-                  Selecciona tu rol
-                </label>
-                <select
-                  id="role"
-                  value={registerUsers.role}
-                  name="role"
-                  onChange={handleChangeRegisterUser}
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
-                >
-                  <option value="Coordinador">Coordinador</option>
-                  <option value="Instructor">Instructor</option>
-                </select>
-              </div>
-
-              <div class="mb-5">
-                <label
-                  for="id"
-                  class="block mb-2 text-base font-bold text-primary "
-                >
-                  Documento
-                </label>
-                <input
-                  type="number"
-                  id="document"
-                  name="document"
-                  onChange={handleChangeRegisterUser}
-                  value={registerUsers.document}
-                  placeholder="Ingresa tu documento"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
-                  required
-                />
-              </div>
-
-              <div class="mb-5">
-                <label
-                  for="id"
-                  class="block mb-2 text-base font-bold text-primary "
-                >
-                  Nombres
-                </label>
-                <input
-                  type="text"
-                  id="names"
-                  name="name"
-                  onChange={handleChangeRegisterUser}
-                  value={registerUsers.name}
-                  placeholder="Ingresa tus nombres"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
-                  required
-                />
-              </div>
-
-              <div class="mb-5">
-                <label
-                  for="id"
-                  class="block mb-2 text-base font-bold text-primary "
-                >
-                  Apellidos
-                </label>
-                <input
-                  type="text"
-                  name="last_name"
-                  onChange={handleChangeRegisterUser}
-                  value={registerUsers.last_name}
-                  id="lastNames"
-                  placeholder="Ingresa tus apellidos"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
-                />
-              </div>
-
-              <div class="mb-5">
-                <label
-                  for="id"
-                  class="block mb-2 text-base font-bold text-primary "
-                >
-                  Correo
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  onChange={handleChangeRegisterUser}
-                  value={registerUsers.email}
-                  id="email"
-                  placeholder="Ingresa tu correo  "
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
-                />
-              </div>
-
-              <div class="mb-5">
-                <label
-                  for="id"
-                  class="block mb-2 text-base font-bold text-primary "
-                >
-                  Telefono
-                </label>
-                <input
-                  type="number"
-                  onChange={handleChangeRegisterUser}
-                  value={registerUsers.phone}
-                  id="phone"
-                  name="phone"
-                  placeholder="Ingresa tu telefono"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
-                />
-              </div>
-
-              <div class="mb-4">
-                <label
-                  for="password"
-                  class="block mb-2 text-base font-bold text-primary"
+                  htmlFor="password"
+                  className="block mb-2 text-base font-bold text-primary"
                 >
                   Contraseña
                 </label>
@@ -213,7 +221,7 @@ export function Registrar() {
                   onChange={handleChangeRegisterUser}
                   value={registerUsers.password}
                   placeholder="Ingresa tu contraseña"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   required
                 />
               </div>
@@ -227,7 +235,7 @@ export function Registrar() {
               </div>
               <button
                 type="submit"
-                class="mt-4 w-full text-white bg-[#277400] hover:bg-[#277400] focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 text-center"
+                className="mt-4 w-full text-white bg-[#277400] hover:bg-[#277400] focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Registrarme
               </button>
@@ -236,7 +244,7 @@ export function Registrar() {
         </section>
       </main>
       <footer>
-        <p class=" text-black font-medium text-sm text-center">
+        <p className=" text-black font-medium text-sm text-center">
           ¿Ya tienes una cuenta?{" "}
           <a href="/auth/iniciarsesion" className="text-primary">
             Iniciar sesión
