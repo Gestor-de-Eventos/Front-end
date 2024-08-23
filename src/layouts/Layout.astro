@@ -1,4 +1,6 @@
 ---
+import ViewTransitions from "astro/components/ViewTransitions.astro";
+
 interface Props {
   title: string;
 }
@@ -15,18 +17,18 @@ const { title } = Astro.props;
     <link
       rel="icon"
       type="image/png"
-      href="src/assets/img/logo-negro.png"
+      href="/logo-negro.png"
       media="(prefers-color-scheme: light)"
     />
     <link
       rel="icon"
       type="image/png"
-      href="src/assets/img/logo-blanco.png"
+      href="/logo-blanco.png"
       media="(prefers-color-scheme: dark)"
     />
     <meta property="og:title" content="Gestor de eventos SENA" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="src/assets/img/logo.png" />
+    <meta property="og:image" content="/logo.png" />
     <meta property="og:image:alt" content="Logo Gestor de eventos SENA" />
     <meta
       property="og:description"
@@ -37,6 +39,7 @@ const { title } = Astro.props;
       src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"
     ></script>
     <title>{title}</title>
+    <ViewTransitions />
   </head>
   <body>
     <slot />
