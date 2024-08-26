@@ -80,7 +80,6 @@ export function Registrar() {
         }
       );
       const dataRegisterUsers = await responseRegisterUsers.json();
-      console.log(dataRegisterUsers);
       if (responseRegisterUsers.status === 200) {
         setSuccessMessage("Usuario registrado correctamente");
       } else {
@@ -96,11 +95,11 @@ export function Registrar() {
     const documentHasCorrectRegex = documentRegex.test(document);
 
     if (!documentHasCorrectRegex) {
-      feedbackRegexDocument.current.textContent = "Documento invalido";
+      feedbackRegexDocument.current.textContent = "Documento inválido";
       feedbackRegexDocument.current.style.color = "red";
       setDocumentEvent(false);
     } else {
-      feedbackRegexDocument.current.textContent = "Documento valido";
+      feedbackRegexDocument.current.textContent = "Documento válido";
       feedbackRegexDocument.current.style.color = "green";
       setDocumentEvent(true);
     }
@@ -111,11 +110,11 @@ export function Registrar() {
     const nameHasCorrectRegex = nameRegex.test(name);
 
     if (!nameHasCorrectRegex) {
-      feedbackRegexName.current.textContent = "Nombre invalido";
+      feedbackRegexName.current.textContent = "Nombre inválido";
       feedbackRegexName.current.style.color = "red";
       setNameEvent(false);
     } else {
-      feedbackRegexName.current.textContent = "Nombre valido";
+      feedbackRegexName.current.textContent = "Nombre válido";
       feedbackRegexName.current.style.color = "green";
       setNameEvent(true);
     }
@@ -127,11 +126,11 @@ export function Registrar() {
     const lastNamesHasCorrectRegex = lastNamesRegex.test(last_names);
 
     if (lastNamesHasCorrectRegex) {
-      feedbackRegexLastNames.current.textContent = "Apellidos validos";
+      feedbackRegexLastNames.current.textContent = "Apellidos válidos";
       feedbackRegexLastNames.current.style.color = "green";
       setLastNamesEvent(true);
     } else {
-      feedbackRegexLastNames.current.textContent = "Apellidos invalidos";
+      feedbackRegexLastNames.current.textContent = "Apellidos inválidos";
       feedbackRegexLastNames.current.style.color = "red";
       setLastNamesEvent(false);
     }
@@ -142,11 +141,11 @@ export function Registrar() {
     const emailHasCorrectRegex = emailRegex.test(email);
 
     if (!emailHasCorrectRegex) {
-      feedbackRegexEmail.current.textContent = "Correo invalido";
+      feedbackRegexEmail.current.textContent = "Correo inválido";
       feedbackRegexEmail.current.style.color = "red";
       setEmailEvent(false);
     } else {
-      feedbackRegexEmail.current.textContent = "Correo valido";
+      feedbackRegexEmail.current.textContent = "Correo válido";
       feedbackRegexEmail.current.style.color = "green";
       setEmailEvent(true);
     }
@@ -157,11 +156,11 @@ export function Registrar() {
     const phoneHasCorrectRegex = regexPhone.test(phone);
 
     if (!phoneHasCorrectRegex) {
-      feedbackRegexPhone.current.textContent = "Telefono invalido";
+      feedbackRegexPhone.current.textContent = "Telefono inválido";
       feedbackRegexPhone.current.style.color = "red";
       setPhoneEvent(false);
     } else {
-      feedbackRegexPhone.current.textContent = "Telefono valido";
+      feedbackRegexPhone.current.textContent = "Telefono válido";
       feedbackRegexPhone.current.style.color = "green";
       setPhoneEvent(true);
     }
@@ -216,13 +215,13 @@ export function Registrar() {
               className="w-full mx-auto"
               onSubmit={handleSubmitRegisterUsers}
             >
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-2 mb-3">
                 <div>
                   <label
                     htmlFor="role"
-                    className="block mb-2 text-base font-bold text-primary "
+                    className="text-center block mb-1 text-base font-bold text-primary "
                   >
-                    Selecciona tu rol
+                    Rol de cuenta
                   </label>
                   <select
                     id="role"
@@ -239,7 +238,7 @@ export function Registrar() {
                 <div>
                   <label
                     htmlFor="id"
-                    className="block mb-2 text-base font-bold text-primary "
+                    className="text-center block mb-1 text-base font-bold text-primary "
                   >
                     Documento
                   </label>
@@ -249,7 +248,7 @@ export function Registrar() {
                     name="document"
                     onChange={handleChangeRegisterUser}
                     value={registerUsers.document}
-                    placeholder="Ingresa tu documento"
+                    placeholder="Documento de identidad"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                     required
                   />
@@ -260,11 +259,11 @@ export function Registrar() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-4 mb-3">
                 <div>
                   <label
                     htmlFor="id"
-                    className="block mb-2 text-base font-bold text-primary "
+                    className="text-center block mb-1 text-base font-bold text-primary "
                   >
                     Nombres
                   </label>
@@ -274,7 +273,7 @@ export function Registrar() {
                     name="name"
                     onChange={handleChangeRegisterUser}
                     value={registerUsers.name}
-                    placeholder="Ingresa tus nombres"
+                    placeholder="Nombres"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                     required
                   />
@@ -287,7 +286,7 @@ export function Registrar() {
                 <div>
                   <label
                     htmlFor="id"
-                    className="block mb-2 text-base font-bold text-primary"
+                    className="text-center block mb-1 text-base font-bold text-primary"
                   >
                     Apellidos
                   </label>
@@ -297,7 +296,7 @@ export function Registrar() {
                     onChange={handleChangeRegisterUser}
                     value={registerUsers.last_names}
                     id="lastNames"
-                    placeholder="Ingresa tus apellidos"
+                    placeholder="Apellidos"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   />
                   <p
@@ -307,11 +306,11 @@ export function Registrar() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-4 mb-3">
                 <div>
                   <label
                     htmlFor="id"
-                    className="block mb-2 text-base font-bold text-primary "
+                    className="text-center block mb-1 text-base font-bold text-primary "
                   >
                     Correo
                   </label>
@@ -321,7 +320,7 @@ export function Registrar() {
                     onChange={handleChangeRegisterUser}
                     value={registerUsers.email}
                     id="email"
-                    placeholder="Ingresa tu correo  "
+                    placeholder="Correo electrónico"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   />
                   <p
@@ -333,9 +332,9 @@ export function Registrar() {
                 <div>
                   <label
                     htmlFor="id"
-                    className="block mb-2 text-base font-bold text-primary"
+                    className="text-center block mb-1 text-base font-bold text-primary"
                   >
-                    Telefono
+                    Celular
                   </label>
                   <input
                     type="number"
@@ -343,7 +342,7 @@ export function Registrar() {
                     value={registerUsers.phone}
                     id="phone"
                     name="phone"
-                    placeholder="Ingresa tu telefono"
+                    placeholder="Teléfono celular"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   />
                   <p
@@ -352,10 +351,10 @@ export function Registrar() {
                   ></p>
                 </div>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex text-center items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block mb-2 text-base font-bold text-primary"
+                  className="text-center block mb-2 text-base font-bold text-primary"
                 >
                   Contraseña
                 </label>
@@ -368,7 +367,7 @@ export function Registrar() {
                     type={typePassoword}
                     value={registerUsers.password}
                     onChange={handleChangeRegisterUser}
-                    placeholder="Ingrese su contraseña"
+                    placeholder="Contraseña"
                     className="w-full bg-gray-50 border-0 text-quaternary-color pr-10 focus:outline-none"
                   />
                   <i
