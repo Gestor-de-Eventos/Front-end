@@ -5,7 +5,7 @@ export function Registrar() {
   const [registerUsers, setRegisterUsers] = useState({
     document: "",
     name: "",
-    last_name: "",
+    last_names: "",
     email: "",
     phone: "",
     role: "Instructor" || "Coordinador",
@@ -167,9 +167,9 @@ export function Registrar() {
                   </label>
                   <input
                     type="text"
-                    name="last_name"
+                    name="last_names"
                     onChange={handleChangeRegisterUser}
-                    value={registerUsers.last_name}
+                    value={registerUsers.last_names}
                     id="lastNames"
                     placeholder="Ingresa tus apellidos"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
