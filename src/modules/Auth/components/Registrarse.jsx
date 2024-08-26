@@ -82,11 +82,14 @@ export function Registrar() {
       const dataRegisterUsers = await responseRegisterUsers.json();
       if (responseRegisterUsers.status === 200) {
         setSuccessMessage("Usuario registrado correctamente");
+        setErrorMessage("");
       } else {
         setErrorMessage(dataRegisterUsers.message);
+        setSuccessMessage("");
       }
     } catch {
       setErrorMessage("Error al registrar el usuario");
+      setSuccessMessage("");
     }
   };
 
