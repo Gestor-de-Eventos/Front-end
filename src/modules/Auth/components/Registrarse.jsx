@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import logoVerde from "../../../assets/img/logo-verde.png";
 
 export function Registrar() {
@@ -17,6 +17,15 @@ export function Registrar() {
 
   const [watchPassword, setWatchPassword] = useState(false);
 
+  const feedbackRegexDocument = useRef(null);
+  const feedbackRegexName = useRef(null);
+  const feedbackRegexLastNames = useRef(null);
+  const feedbackRegexEmail = useRef(null);
+  const feedbackRegexPhone = useRef(null);
+  const feedbackPassword = useRef(null);
+
+  const [allRegexOk, setAllRegexOk] = useState(false);
+
   const typePassoword = watchPassword ? "text" : "password";
   const eyePassword = watchPassword
     ? "fa-solid fa-eye cursor-pointer hover:bg-sitenary-color rounded-full"
@@ -29,6 +38,19 @@ export function Registrar() {
         ...prevDataRegisterUsers,
         [name]: value,
       };
+      if (name === "document") {
+        regexDocument(value);
+      } else if (name === "name") {
+        regexName(value);
+      } else if (name === "last_names") {
+        regexLastNames(value);
+      } else if (name === "email") {
+        regexEmail(value);
+      } else if (name === "phone") {
+        regexPhone(value);
+      } else {
+        regexPassword(value);
+      }
       return newDataRegisterUsers;
     });
   };
@@ -64,6 +86,97 @@ export function Registrar() {
     }
   };
 
+  const regexDocument = (document) => {
+    const documentRegex = /^[0-9]{1,9}$/;
+    const documentHasCorrectRegex = documentRegex.test(document);
+
+    if (!documentHasCorrectRegex) {
+      feedbackRegexDocument.current.textContent = "Documento invalido";
+      feedbackRegexDocument.current.style.color = "red";
+      setAllRegexOk(false);
+    } else {
+      feedbackRegexDocument.current.textContent = "Documento valido";
+      feedbackRegexDocument.current.style.color = "green";
+      setAllRegexOk(true);
+    }
+  };
+
+  const regexName = (name) => {
+    const nameRegex = /^[A-Za-zñ.Ñ:-á-|éí,óúÁÉÍ&%$ÓÚäëïöüÄËÏÖÜ0-9\s]{1,64}$/;
+    const nameHasCorrectRegex = nameRegex.test(name);
+
+    if (!nameHasCorrectRegex) {
+      feedbackRegexName.current.textContent = "Nombre invalido";
+      feedbackRegexName.current.style.color = "red";
+      setAllRegexOk(false);
+    } else {
+      feedbackRegexName.current.textContent = "Nombre valido";
+      feedbackRegexName.current.style.color = "green";
+      setAllRegexOk(true);
+    }
+  };
+
+  const regexLastNames = (last_names) => {
+    const lastNamesRegex =
+      /^[A-Za-zñ.Ñ:-á-|éí,óúÁÉÍ&%$ÓÚäëïöüÄËÏÖÜ0-9\s]{1,64}$/;
+    const lastNamesHasCorrectRegex = lastNamesRegex.test(last_names);
+
+    if (lastNamesHasCorrectRegex) {
+      feedbackRegexLastNames.current.textContent = "Apellidos validos";
+      feedbackRegexLastNames.current.style.color = "green";
+      setAllRegexOk(true);
+    } else {
+      feedbackRegexLastNames.current.textContent = "Apellidos invalidos";
+      feedbackRegexLastNames.current.style.color = "red";
+      setAllRegexOk(false);
+    }
+  };
+
+  const regexEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailHasCorrectRegex = emailRegex.test(email);
+
+    if (!emailHasCorrectRegex) {
+      feedbackRegexEmail.current.textContent = "Correo invalido";
+      feedbackRegexEmail.current.style.color = "red";
+      setAllRegexOk(false);
+    } else {
+      feedbackRegexEmail.current.textContent = "Correo valido";
+      feedbackRegexEmail.current.style.color = "green";
+      setAllRegexOk(true);
+    }
+  };
+
+  const regexPhone = (phone) => {
+    const regexPhone = /^[0-9]{1,16}$/;
+    const phoneHasCorrectRegex = regexPhone.test(phone);
+
+    if (!phoneHasCorrectRegex) {
+      feedbackRegexPhone.current.textContent = "Telefono invalido";
+      feedbackRegexPhone.current.style.color = "red";
+      setAllRegexOk(false);
+    } else {
+      feedbackRegexPhone.current.textContent = "Telefono valido";
+      feedbackRegexPhone.current.style.color = "green";
+      setAllRegexOk(true);
+    }
+  };
+
+  const regexPassword = (password) => {
+    const regexPassword =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,256}$/;
+    const passwordHasCorrectRegex = regexPassword.test(password);
+
+    if (!passwordHasCorrectRegex) {
+      feedbackPassword.current.textContent = "Contraseña invalida";
+      feedbackPassword.current.style.color = "red";
+      setAllRegexOk(false);
+    } else {
+      feedbackPassword.current.textContent = "Contraseña valida";
+      feedbackPassword.current.style.color = "green";
+      setAllRegexOk(true);
+    }
+  };
   return (
     <div className="flex flex-col items-center justify-center py-4 px-4 gap-6 max-w-96 m-auto">
       <a
@@ -135,6 +248,10 @@ export function Registrar() {
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                     required
                   />
+                  <p
+                    className="text-center text-base"
+                    ref={feedbackRegexDocument}
+                  ></p>
                 </div>
               </div>
 
@@ -156,12 +273,16 @@ export function Registrar() {
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                     required
                   />
+                  <p
+                    className="text-center text-base"
+                    ref={feedbackRegexName}
+                  ></p>
                 </div>
 
                 <div>
                   <label
                     htmlFor="id"
-                    className="block mb-2 text-base font-bold text-primary "
+                    className="block mb-2 text-base font-bold text-primary"
                   >
                     Apellidos
                   </label>
@@ -174,6 +295,10 @@ export function Registrar() {
                     placeholder="Ingresa tus apellidos"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   />
+                  <p
+                    className="text-center text-base"
+                    ref={feedbackRegexLastNames}
+                  ></p>
                 </div>
               </div>
 
@@ -194,6 +319,10 @@ export function Registrar() {
                     placeholder="Ingresa tu correo  "
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   />
+                  <p
+                    className="text-center text-base"
+                    ref={feedbackRegexEmail}
+                  ></p>
                 </div>
 
                 <div>
@@ -212,6 +341,10 @@ export function Registrar() {
                     placeholder="Ingresa tu telefono"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   />
+                  <p
+                    className="text-center text-base"
+                    ref={feedbackRegexPhone}
+                  ></p>
                 </div>
               </div>
               <div className="flex items-center justify-between">
@@ -239,6 +372,7 @@ export function Registrar() {
                     onClick={() => setWatchPassword(!watchPassword)}
                   ></i>
                 </div>
+                <p className="text-center text-base" ref={feedbackPassword}></p>
               </div>
               <div className="flex justify-center text-center">
                 {successMessage && (
@@ -251,6 +385,11 @@ export function Registrar() {
               <button
                 type="submit"
                 className="mt-4 w-full text-white bg-[#277400] hover:bg-[#277400] focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 text-center"
+                style={{
+                  background: allRegexOk ? "black" : "rgba(0, 0, 0, 0.2)",
+                  pointerEvents: allRegexOk ? "auto" : "none",
+                  color: allRegexOk ? "white" : "black",
+                }}
               >
                 Registrarme
               </button>
