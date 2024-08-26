@@ -24,7 +24,12 @@ export function Registrar() {
   const feedbackRegexPhone = useRef(null);
   const feedbackPassword = useRef(null);
 
-  const [allRegexOk, setAllRegexOk] = useState(false);
+  const [documentEvent, setDocumentEvent] = useState(false);
+  const [nameEvent, setNameEvent] = useState(false);
+  const [lastNamesEvent, setLastNamesEvent] = useState(false);
+  const [emailEvent, setEmailEvent] = useState(false);
+  const [phoneEvent, setPhoneEvent] = useState(false);
+  const [passwordEvent, setPasswordEvent] = useState(false);
 
   const typePassoword = watchPassword ? "text" : "password";
   const eyePassword = watchPassword
@@ -93,11 +98,11 @@ export function Registrar() {
     if (!documentHasCorrectRegex) {
       feedbackRegexDocument.current.textContent = "Documento invalido";
       feedbackRegexDocument.current.style.color = "red";
-      setAllRegexOk(false);
+      setDocumentEvent(false);
     } else {
       feedbackRegexDocument.current.textContent = "Documento valido";
       feedbackRegexDocument.current.style.color = "green";
-      setAllRegexOk(true);
+      setDocumentEvent(true);
     }
   };
 
@@ -108,11 +113,11 @@ export function Registrar() {
     if (!nameHasCorrectRegex) {
       feedbackRegexName.current.textContent = "Nombre invalido";
       feedbackRegexName.current.style.color = "red";
-      setAllRegexOk(false);
+      setNameEvent(false);
     } else {
       feedbackRegexName.current.textContent = "Nombre valido";
       feedbackRegexName.current.style.color = "green";
-      setAllRegexOk(true);
+      setNameEvent(true);
     }
   };
 
@@ -124,11 +129,11 @@ export function Registrar() {
     if (lastNamesHasCorrectRegex) {
       feedbackRegexLastNames.current.textContent = "Apellidos validos";
       feedbackRegexLastNames.current.style.color = "green";
-      setAllRegexOk(true);
+      setLastNamesEvent(true);
     } else {
       feedbackRegexLastNames.current.textContent = "Apellidos invalidos";
       feedbackRegexLastNames.current.style.color = "red";
-      setAllRegexOk(false);
+      setLastNamesEvent(false);
     }
   };
 
@@ -139,11 +144,11 @@ export function Registrar() {
     if (!emailHasCorrectRegex) {
       feedbackRegexEmail.current.textContent = "Correo invalido";
       feedbackRegexEmail.current.style.color = "red";
-      setAllRegexOk(false);
+      setEmailEvent(false);
     } else {
       feedbackRegexEmail.current.textContent = "Correo valido";
       feedbackRegexEmail.current.style.color = "green";
-      setAllRegexOk(true);
+      setEmailEvent(true);
     }
   };
 
@@ -154,11 +159,11 @@ export function Registrar() {
     if (!phoneHasCorrectRegex) {
       feedbackRegexPhone.current.textContent = "Telefono invalido";
       feedbackRegexPhone.current.style.color = "red";
-      setAllRegexOk(false);
+      setPhoneEvent(false);
     } else {
       feedbackRegexPhone.current.textContent = "Telefono valido";
       feedbackRegexPhone.current.style.color = "green";
-      setAllRegexOk(true);
+      setPhoneEvent(true);
     }
   };
 
@@ -170,11 +175,11 @@ export function Registrar() {
     if (!passwordHasCorrectRegex) {
       feedbackPassword.current.textContent = "Contraseña invalida";
       feedbackPassword.current.style.color = "red";
-      setAllRegexOk(false);
+      setPasswordEvent(false);
     } else {
       feedbackPassword.current.textContent = "Contraseña valida";
       feedbackPassword.current.style.color = "green";
-      setAllRegexOk(true);
+      setPasswordEvent(true);
     }
   };
   return (
@@ -386,9 +391,33 @@ export function Registrar() {
                 type="submit"
                 className="mt-4 w-full text-white bg-[#277400] hover:bg-[#277400] focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 text-center"
                 style={{
-                  background: allRegexOk ? "black" : "rgba(0, 0, 0, 0.2)",
-                  pointerEvents: allRegexOk ? "auto" : "none",
-                  color: allRegexOk ? "white" : "black",
+                  background:
+                    documentEvent &&
+                    nameEvent &&
+                    lastNamesEvent &&
+                    emailEvent &&
+                    phoneEvent &&
+                    passwordEvent
+                      ? "black"
+                      : "rgba(0, 0, 0, 0.2)",
+                  pointerEvents:
+                    documentEvent &&
+                    nameEvent &&
+                    lastNamesEvent &&
+                    emailEvent &&
+                    phoneEvent &&
+                    passwordEvent
+                      ? "auto"
+                      : "none",
+                  color:
+                    documentEvent &&
+                    nameEvent &&
+                    lastNamesEvent &&
+                    emailEvent &&
+                    phoneEvent &&
+                    passwordEvent
+                      ? "white"
+                      : "black",
                 }}
               >
                 Registrarme
