@@ -1,7 +1,6 @@
 import logoVerde from "../../../assets/img/logo-verde.png";
 
 export function IniciarSesion() {
-
   return (
     <div className="flex flex-col items-center justify-center py-4 px-4 gap-6 max-w-96 m-auto">
       <a
@@ -34,11 +33,11 @@ export function IniciarSesion() {
             </h1>
           </div>
           <div>
-            <form class="w-full mx-auto">
-              <div class="mb-5">
+            <form className="w-full mx-auto">
+              <div className="mb-5">
                 <label
-                  for="id"
-                  class="block mb-2 text-base font-bold text-primary "
+                  htmlFor="id"
+                  className="block mb-2 text-base font-bold text-primary "
                 >
                   Número de documento
                 </label>
@@ -47,14 +46,14 @@ export function IniciarSesion() {
                   id="id"
                   pattern="[0-9]+"
                   placeholder="Ingresa tu numero de documento"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   required
                 />
               </div>
-              <div class="mb-4">
+              <div className="mb-4">
                 <label
-                  for="password"
-                  class="block mb-2 text-base font-bold text-primary"
+                  htmlFor="password"
+                  className="block mb-2 text-base font-bold text-primary"
                 >
                   Contraseña
                 </label>
@@ -62,11 +61,11 @@ export function IniciarSesion() {
                   type="password"
                   id="password"
                   placeholder="Ingresa tu contraseña"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   required
                 />
               </div>
-              <div class="flex flex-col gap-2">
+              <div className="flex flex-col gap-2">
                 <a
                   href="/auth/recuperar"
                   className="text-primary font-medium text-sm"
@@ -76,7 +75,7 @@ export function IniciarSesion() {
               </div>
               <button
                 type="submit"
-                class="mt-4 w-full text-white bg-[#277400] hover:bg-[#277400] focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 text-center"
+                className="mt-4 w-full text-white bg-[#277400] hover:bg-[#277400] focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Iniciar sesión
               </button>
@@ -85,7 +84,7 @@ export function IniciarSesion() {
         </section>
       </main>
       <footer>
-        <p class=" text-black font-medium text-sm text-center">
+        <p className=" text-black font-medium text-sm text-center">
           ¿No tienes una cuenta?{" "}
           <a href="/auth/registrarse" className="text-primary">
             Registrate
