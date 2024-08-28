@@ -9,7 +9,7 @@ export function IniciarSesion() {
     const checkSession = async () => {
       try {
         const response = await fetch(
-          "https://eventos.sharepointeros.com/api/auth/check-my-session",
+          `https://eventos.sharepointeros.com/api/auth/check-my-session`,
           {
             method: "GET",
             headers: {
@@ -29,7 +29,7 @@ export function IniciarSesion() {
       }
     };
 
-    checkSession(); // Llama a la función aquí
+    checkSession();
   }, []);
 
   const [loginUsers, setLoginUsers] = useState({
@@ -65,7 +65,7 @@ export function IniciarSesion() {
     const dataToSend = { document: parseInt(document), ...restLoginUsers };
     try {
       const responseLoginUsers = await fetch(
-        "https://eventos.sharepointeros.com/api/auth/login",
+        `https://eventos.sharepointeros.com/api/auth/login`,
         {
           method: "POST",
           headers: {
@@ -93,7 +93,7 @@ export function IniciarSesion() {
   };
 
   if (loading) {
-    return <div>Cargando...</div>;
+    return <div></div>;
   }
 
   const regexDocument = (document) => {
@@ -223,7 +223,7 @@ export function IniciarSesion() {
               >
                 Iniciar sesión
               </button>
-              <div className="text-center">
+              <div className="text-center mt-3">
                 {<p className="text-green-600">{successMessage}</p>}
                 {<p className="text-red-600">{errorMessage}</p>}
               </div>
