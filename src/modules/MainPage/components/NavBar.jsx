@@ -1,4 +1,4 @@
-import logoBlanco from "../../../assets/img/logo-blanco.png";
+import logoBlanco from "@/assets/img/logo-blanco.png";
 export default function NavBar() {
   return (
     <nav className="bg-secondary sticky top-0 w-full z-20 start-0 ">

@@ -83,7 +83,7 @@ export default function Calendar() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row lg:gap-10 mx-auto my-6 max-w-screen-lg h-[75vh]">
+    <div className="flex flex-col lg:flex-row lg:gap-10 mx-auto my-6 max-w-screen-lg h-full">
       <div className="flex flex-col px-4 w-full lg:w-1/2 bg-white shadow-md rounded-lg flex-grow-0 h-full">
         <div className="flex justify-center items-center h-16">
           <div className="flex items-center gap-3">
@@ -171,7 +171,7 @@ export default function Calendar() {
         </div>
       </div>
 
-      <div className="w-full lg:w-1/2 bg-white shadow-md rounded-lg p-4 flex flex-col h-full mt-4 lg:mt-0">
+      <div className="w-full lg:w-1/2 bg-white shadow-md rounded-lg p-4 flex flex-col h-full lg:h-auto mt-4 lg:mt-0">
         <h1 className="font-semibold text-lg mb-4">
           Agenda para {selectDate.format("dddd, D MMMM YYYY")}
         </h1>

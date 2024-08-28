@@ -2,13 +2,11 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/modules/MainPage/components/Header.astro";
 import NavBar from "@/modules/MainPage/components/NavBar";
-import Calendar from "@/modules/calendar/Calendar.jsx";
+import Calendar from "@/modules/Calendar/Calendar.jsx";
 ---
 
 <Layout title="Gestor de eventos">
   <Header />
   <NavBar />
-  <div class="w-full">
-    <Calendar client:load />
-  </div>
+  <Calendar client:load />
 </Layout>

@@ -185,7 +185,7 @@ export function Registrar() {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center py-4 px-4 gap-6 max-w-96 m-auto">
+    <div className="flex flex-col items-center justify-center py-4 px-4 gap-6 max-w-[700px] m-auto">
       <a
         href="/"
         className="flex gap-1 items-center absolute top-6 left-4 bg-primary text-white p-2 rounded-lg"
@@ -209,7 +209,7 @@ export function Registrar() {
       </header>
 
       <main className="w-full">
-        <section className="flex flex-col gap-12">
+        <section className="flex flex-col gap-7">
           <div>
             <h1 className="text-4xl font-bold text-center">Crea tu cuenta</h1>
           </div>
@@ -218,11 +218,11 @@ export function Registrar() {
               className="w-full mx-auto"
               onSubmit={handleSubmitRegisterUsers}
             >
-              <div className="grid sm:grid-cols-2 gap-2 mb-3">
+              <div className="grid sm:grid-cols-2 gap-4 mb-3">
                 <div>
                   <label
                     htmlFor="role"
-                    className="text-center block mb-1 text-base font-bold text-primary "
+                    className=" block mb-1 text-base font-bold text-primary "
                   >
                     Rol de cuenta
                   </label>
@@ -241,7 +241,7 @@ export function Registrar() {
                 <div>
                   <label
                     htmlFor="id"
-                    className="text-center block mb-1 text-base font-bold text-primary "
+                    className=" block mb-1 text-base font-bold text-primary "
                   >
                     Documento
                   </label>
@@ -266,7 +266,7 @@ export function Registrar() {
                 <div>
                   <label
                     htmlFor="id"
-                    className="text-center block mb-1 text-base font-bold text-primary "
+                    className=" block mb-1 text-base font-bold text-primary "
                   >
                     Nombres
                   </label>
@@ -289,7 +289,7 @@ export function Registrar() {
                 <div>
                   <label
                     htmlFor="id"
-                    className="text-center block mb-1 text-base font-bold text-primary"
+                    className=" block mb-1 text-base font-bold text-primary"
                   >
                     Apellidos
                   </label>
@@ -313,7 +313,7 @@ export function Registrar() {
                 <div>
                   <label
                     htmlFor="id"
-                    className="text-center block mb-1 text-base font-bold text-primary "
+                    className=" block mb-1 text-base font-bold text-primary "
                   >
                     Correo
                   </label>
@@ -335,7 +335,7 @@ export function Registrar() {
                 <div>
                   <label
                     htmlFor="id"
-                    className="text-center block mb-1 text-base font-bold text-primary"
+                    className=" block mb-1 text-base font-bold text-primary"
                   >
                     Celular
                   </label>
