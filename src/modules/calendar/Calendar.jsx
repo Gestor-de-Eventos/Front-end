@@ -24,8 +24,6 @@ dayjs.updateLocale("es", {
     "Diciembre",
   ],
 });
-
-// Objeto de eventos
 const events = {
   "2024-08-30": [
     {
@@ -61,7 +59,7 @@ const events = {
 };
 
 export default function Calendar() {
-  const days = ["D", "L", "M", "X", "J", "V", "S"]; // Nombres de días en español
+  const days = ["D", "L", "M", "X", "J", "V", "S"];
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
@@ -69,19 +67,19 @@ export default function Calendar() {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   const goToPreviousMonth = () => {
-    const previousMonth = today.subtract(1, "month"); // Retrocede un mes
+    const previousMonth = today.subtract(1, "month");
     setToday(previousMonth);
   };
 
   const goToNextMonth = () => {
-    const nextMonth = today.add(1, "month"); // Avanza un mes
+    const nextMonth = today.add(1, "month");
     setToday(nextMonth);
   };
 
   const handleYearChange = (event) => {
     const year = parseInt(event.target.value);
     setSelectedYear(year);
-    setToday(today.year(year)); // Actualiza el estado del mes y año
+    setToday(today.year(year));
   };
 
   return (
@@ -148,7 +146,7 @@ export default function Calendar() {
                   <h1
                     className={cn(
                       currentMonth ? "" : "text-gray-400",
-                      today ? "bg-red-600 text-white" : "",
+                      today ? "bg-primary text-white" : "",
                       isSelected
                         ? "bg-black text-white"
                         : hasEvents
@@ -162,7 +160,7 @@ export default function Calendar() {
                   >
                     {date.date()}
                   </h1>
-                  {/* Mostrar una bola verde si hay eventos */}
+
                   {hasEvents && (
                     <div className="absolute top-1.5 left-2.5 w-3.5 h-3.5 bg-green-500 rounded-full" />
                   )}
@@ -173,7 +171,6 @@ export default function Calendar() {
         </div>
       </div>
 
-      {/* Contenedor de eventos */}
       <div className="w-full lg:w-1/2 bg-white shadow-md rounded-lg p-4 flex flex-col h-full mt-4 lg:mt-0">
         <h1 className="font-semibold text-lg mb-4">
           Agenda para {selectDate.format("dddd, D MMMM YYYY")}
@@ -209,7 +206,6 @@ export default function Calendar() {
         {selectedEvent && (
           <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 h-screen">
             <div className="bg-white border border-gray-300 shadow-2xl p-8 rounded-2xl w-4/5 max-w-2xl flex flex-col items-center relative">
-              {/* Botón de cerrar (X) */}
               <button
                 className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
                 onClick={() => setSelectedEvent(null)}
@@ -224,17 +220,14 @@ export default function Calendar() {
                 </svg>
               </button>
 
-              {/* Título del evento */}
               <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
                 {selectedEvent.title}
               </h2>
 
-              {/* Imagen o ícono del evento */}
               <div className="bg-blue-500 text-white rounded-full w-20 h-20 flex justify-center items-center mb-6">
                 <span className="text-3xl">📅</span>
               </div>
 
-              {/* Detalles del evento */}
               <div className="flex flex-col items-center mb-6 w-full">
                 <p className="text-gray-700 text-lg text-center mb-2">
                   {selectDate.format("dddd, D MMMM YYYY")}
@@ -242,17 +235,17 @@ export default function Calendar() {
                 <p className="text-gray-600 text-md text-center">
                   Hora: {selectedEvent.time}
                 </p>
-                {/* Separador */}
+
                 <hr className="border-t border-gray-300 w-full my-4" />
-                {/* Ubicación */}
+
                 <p className="text-gray-500 text-center mt-2">
                   <strong>Ubicación:</strong> Sala de conferencias 2, Edificio A
                 </p>
-                {/* Descripción del evento */}
+
                 <p className="text-gray-700 text-center mt-4 px-4">
                   {selectedEvent.description}
                 </p>
-                {/* Descripción extendida */}
+
                 <p className="text-gray-600 text-center mt-2 px-4">
                   Esta es una oportunidad excelente para discutir sobre los
                   nuevos proyectos y alinearnos con los objetivos del próximo
