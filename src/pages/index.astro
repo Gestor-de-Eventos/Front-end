@@ -2,13 +2,13 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/modules/MainPage/components/Header.astro";
 import NavBar from "@/modules/MainPage/components/NavBar";
-import App from "@/modules/Calendar/Calendar.jsx";
+import Calendar from "@/modules/calendar/Calendar.jsx";
 ---
 
 <Layout title="Gestor de eventos">
   <Header />
   <NavBar />
-  <div class="h-screen py-6">
-    <App />
+  <div class="w-full">
+    <Calendar client:load />
   </div>
 </Layout>
