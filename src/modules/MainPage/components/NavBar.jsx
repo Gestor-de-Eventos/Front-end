@@ -6,7 +6,8 @@ export default function NavBar() {
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
             src={logoBlanco.src}
-            className="h-8 md:h-12"
+            width="48"
+            height="32"
             alt="Logo Blanco SENA"
           />
           <span className="self-center text-xl md:text-2xl font-bold text-white">

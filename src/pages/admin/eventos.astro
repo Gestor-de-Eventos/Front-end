@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import NavSideBar from "@/modules/Admin/components/NavSideBar";
-import App from "@/modules/Admin/solicitudes/App";
+import App from "@/modules/Admin/eventos/App";
 ---
 
 <Layout title="Coordinador">
@@ -9,7 +9,7 @@ import App from "@/modules/Admin/solicitudes/App";
 
   <!-- Main Content -->
   <div class="p-4 sm:ml-64">
-    <div class="mt-12 p-4 h-full">
+    <div class="mt-16 p-4 border border-gray-200 rounded-lg shadow bg-white">
       <App client:load />
     </div>
   </div>

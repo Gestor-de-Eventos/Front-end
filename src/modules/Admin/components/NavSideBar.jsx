@@ -17,9 +17,9 @@ const NavSideBar = () => {
           <div class="flex items-center justify-between">
             <div class="flex items-center justify-start rtl:justify-end">
               <button
-                data-drawer-target="logo-sidebar"
-                data-drawer-toggle="logo-sidebar"
-                aria-controls="logo-sidebar"
+                data-drawer-target="sidebar"
+                data-drawer-toggle="sidebar"
+                aria-controls="sidebar"
                 type="button"
                 class="inline-flex items-center p-2 text-gray-800 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300"
               >
@@ -78,6 +78,7 @@ const NavSideBar = () => {
                 </DropdownItem>
                 <DropdownItem key="profile">Perfil</DropdownItem>
                 <DropdownItem
+                  href="/"
                   key="logout"
                   color="danger"
                   className="flex bg-red-100 mt-2"
@@ -101,12 +102,12 @@ const NavSideBar = () => {
       </nav>
 
       <aside
-        id="logo-sidebar"
+        id="sidebar"
         class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
         aria-label="Sidebar"
       >
         <div class="h-full px-3 pb-4 overflow-y-auto">
-          <ul class="space-y-2 font-medium">
+          <ul class="space-y-2 font-bold">
             <ItemsList
               href={"/admin/"}
               logo="ri-dashboard-horizontal-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
@@ -119,13 +120,18 @@ const NavSideBar = () => {
             />
             <ItemsList
               href={"/admin/solicitudes"}
-              logo="ri-inbox-2-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
+              logo="ri-mail-unread-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
               title="Solucitudes"
             >
               <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-white bg-primary rounded-full">
                 3
               </span>
             </ItemsList>
+            <ItemsList
+              href={"/admin/eventos"}
+              logo="ri-inbox-2-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
+              title="Eventos"
+            ></ItemsList>
             <ItemsList
               href={"/admin/inventario"}
               logo="ri-pencil-ruler-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"

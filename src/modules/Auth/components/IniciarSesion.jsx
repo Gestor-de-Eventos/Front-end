@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import logoVerde from "../../../assets/img/logo-verde.png";
 
 export function IniciarSesion() {
-  const [session, setSession] = useState(null);
+  const [setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

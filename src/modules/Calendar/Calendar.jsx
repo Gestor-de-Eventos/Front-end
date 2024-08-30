@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import "dayjs/locale/es";
 import updateLocale from "dayjs/plugin/updateLocale";
-import React, { useState } from "react";
+import { useState } from "react";
 import { generateDate } from "./util/calendar";
 import cn from "./util/cn";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
@@ -91,7 +91,8 @@ export default function Calendar() {
               className="bg-secondary text-white rounded-lg w-6 h-6 cursor-pointer hover:scale-105 transition-all"
               onClick={goToPreviousMonth}
             />
-            <h1
+            <label
+              for="year"
               className="cursor-pointer hover:scale-105 transition-all select-none font-bold"
               onClick={() => {
                 setToday(currentDate);
@@ -99,8 +100,9 @@ export default function Calendar() {
               }}
             >
               {today.format("MMMM")}
-            </h1>
+            </label>
             <select
+              id="year"
               value={selectedYear}
               onChange={handleYearChange}
               className="bg-slate-300 cursor-pointer hover:scale-105 transition-all rounded-lg p-1"
@@ -145,8 +147,8 @@ export default function Calendar() {
                 >
                   <h1
                     className={cn(
-                      currentMonth ? "" : "text-gray-400",
-                      today ? "bg-primary text-white" : "",
+                      currentMonth ? "" : "text-gray-600",
+                      today ? "bg-secondary text-white" : "",
                       isSelected
                         ? "bg-black text-white"
                         : hasEvents
@@ -190,7 +192,7 @@ export default function Calendar() {
                     <p className="text-gray-600">{event.description}</p>
                   </div>
                   <button
-                    className="bg-blue-500 text-white text-sm rounded-lg p-3 hover:bg-secondary transition-colors"
+                    className="bg-secondary text-white font-bold  text-sm rounded-lg p-3 hover:bg-secondary transition-colors"
                     onClick={() => setSelectedEvent(event)}
                   >
                     Ver evento
