@@ -8,7 +8,7 @@ export function Registrar() {
     last_names: "",
     email: "",
     phone: "",
-    role: "Instructor" || "Coordinador",
+    role: "Instructor",
     password: "",
   });
 
@@ -31,7 +31,7 @@ export function Registrar() {
   const [phoneEvent, setPhoneEvent] = useState(false);
   const [passwordEvent, setPasswordEvent] = useState(false);
 
-  const typePassoword = watchPassword ? "text" : "password";
+  const typePassword = watchPassword ? "text" : "password";
   const eyePassword = watchPassword
     ? "fa-solid fa-eye cursor-pointer hover:bg-sitenary-color rounded-full"
     : "fa-solid fa-eye-slash cursor-pointer hover:bg-sitenary-color rounded-full";
@@ -53,7 +53,7 @@ export function Registrar() {
         regexEmail(value);
       } else if (name === "phone") {
         regexPhone(value);
-      } else {
+      } else if (name === "password") {
         regexPassword(value);
       }
       return newDataRegisterUsers;
@@ -94,7 +94,7 @@ export function Registrar() {
   };
 
   const regexDocument = (document) => {
-    const documentRegex = /^[0-9]{1,9}$/;
+    const documentRegex = /^[0-9]{1,16}$/;
     const documentHasCorrectRegex = documentRegex.test(document);
 
     if (!documentHasCorrectRegex) {
@@ -124,8 +124,7 @@ export function Registrar() {
   };
 
   const regexLastNames = (last_names) => {
-    const lastNamesRegex =
-      /^[A-Za-zñ.Ñ:-á-|éí,óúÁÉÍ&%$ÓÚäëïöüÄËÏÖÜ0-9\s]{1,64}$/;
+    const lastNamesRegex = /^[A-Za-zñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ\s]{1,64}$/;
     const lastNamesHasCorrectRegex = lastNamesRegex.test(last_names);
 
     if (lastNamesHasCorrectRegex) {
@@ -159,11 +158,11 @@ export function Registrar() {
     const phoneHasCorrectRegex = regexPhone.test(phone);
 
     if (!phoneHasCorrectRegex) {
-      feedbackRegexPhone.current.textContent = "Telefono inválido";
+      feedbackRegexPhone.current.textContent = "Teléfono inválido";
       feedbackRegexPhone.current.style.color = "red";
       setPhoneEvent(false);
     } else {
-      feedbackRegexPhone.current.textContent = "Telefono válido";
+      feedbackRegexPhone.current.textContent = "Teléfono válido";
       feedbackRegexPhone.current.style.color = "green";
       setPhoneEvent(true);
     }
@@ -175,15 +174,16 @@ export function Registrar() {
     const passwordHasCorrectRegex = regexPassword.test(password);
 
     if (!passwordHasCorrectRegex) {
-      feedbackPassword.current.textContent = "Contraseña invalida";
+      feedbackPassword.current.textContent = "Contraseña inválida";
       feedbackPassword.current.style.color = "red";
       setPasswordEvent(false);
     } else {
-      feedbackPassword.current.textContent = "Contraseña valida";
+      feedbackPassword.current.textContent = "Contraseña válida";
       feedbackPassword.current.style.color = "green";
       setPasswordEvent(true);
     }
   };
+
   return (
     <div className="flex flex-col items-center justify-center py-4 px-4 gap-6 max-w-[700px] m-auto">
       <a
@@ -237,205 +237,175 @@ export function Registrar() {
                     <option value="Instructor">Instructor</option>
                   </select>
                 </div>
-
                 <div>
                   <label
-                    htmlFor="id"
-                    className=" block mb-1 text-base font-bold text-primary "
+                    htmlFor="document"
+                    className="block mb-1 text-base font-bold text-primary "
                   >
                     Documento
                   </label>
                   <input
-                    type="number"
                     id="document"
+                    type="number"
+                    placeholder="Ingresa tu documento"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                     name="document"
-                    onChange={handleChangeRegisterUser}
                     value={registerUsers.document}
-                    placeholder="Documento de identidad"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                    onChange={handleChangeRegisterUser}
                     required
                   />
-                  <p
-                    className="text-center text-base"
+                  <span
                     ref={feedbackRegexDocument}
-                  ></p>
+                    className="text-xs font-semibold"
+                  ></span>
                 </div>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4 mb-3">
                 <div>
                   <label
-                    htmlFor="id"
-                    className=" block mb-1 text-base font-bold text-primary "
+                    htmlFor="name"
+                    className="block mb-1 text-base font-bold text-primary "
                   >
                     Nombres
                   </label>
                   <input
+                    id="name"
                     type="text"
-                    id="names"
+                    placeholder="Ingresa tus nombres"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                     name="name"
-                    onChange={handleChangeRegisterUser}
                     value={registerUsers.name}
-                    placeholder="Nombres"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                    onChange={handleChangeRegisterUser}
                     required
                   />
-                  <p
-                    className="text-center text-base"
+                  <span
                     ref={feedbackRegexName}
-                  ></p>
+                    className="text-xs font-semibold"
+                  ></span>
                 </div>
-
                 <div>
                   <label
-                    htmlFor="id"
-                    className=" block mb-1 text-base font-bold text-primary"
+                    htmlFor="last_names"
+                    className="block mb-1 text-base font-bold text-primary "
                   >
                     Apellidos
                   </label>
                   <input
+                    id="last_names"
                     type="text"
+                    placeholder="Ingresa tus apellidos"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                     name="last_names"
-                    onChange={handleChangeRegisterUser}
                     value={registerUsers.last_names}
-                    id="lastNames"
-                    placeholder="Apellidos"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                    onChange={handleChangeRegisterUser}
+                    required
                   />
-                  <p
-                    className="text-center text-base"
+                  <span
                     ref={feedbackRegexLastNames}
-                  ></p>
+                    className="text-xs font-semibold"
+                  ></span>
                 </div>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4 mb-3">
                 <div>
                   <label
-                    htmlFor="id"
-                    className=" block mb-1 text-base font-bold text-primary "
+                    htmlFor="email"
+                    className="block mb-1 text-base font-bold text-primary "
                   >
-                    Correo
+                    Correo electrónico
                   </label>
                   <input
-                    type="email"
-                    name="email"
-                    onChange={handleChangeRegisterUser}
-                    value={registerUsers.email}
                     id="email"
-                    placeholder="Correo electrónico"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                    type="email"
+                    placeholder="Ingresa tu correo"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                    name="email"
+                    value={registerUsers.email}
+                    onChange={handleChangeRegisterUser}
+                    required
                   />
-                  <p
-                    className="text-center text-base"
+                  <span
                     ref={feedbackRegexEmail}
-                  ></p>
+                    className="text-xs font-semibold"
+                  ></span>
                 </div>
-
                 <div>
                   <label
-                    htmlFor="id"
-                    className=" block mb-1 text-base font-bold text-primary"
+                    htmlFor="phone"
+                    className="block mb-1 text-base font-bold text-primary "
                   >
-                    Celular
+                    Teléfono
                   </label>
                   <input
-                    type="number"
-                    onChange={handleChangeRegisterUser}
-                    value={registerUsers.phone}
                     id="phone"
+                    type="number"
+                    placeholder="Ingresa tu número de teléfono"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                     name="phone"
-                    placeholder="Teléfono celular"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
-                  />
-                  <p
-                    className="text-center text-base"
-                    ref={feedbackRegexPhone}
-                  ></p>
-                </div>
-              </div>
-              <div className="flex text-center items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="text-center block mb-2 text-base font-bold text-primary"
-                >
-                  Contraseña
-                </label>
-              </div>
-              <div className="mt-2">
-                <div className="relative shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg px-2.5 py-3">
-                  <input
-                    id="password"
-                    name="password"
-                    type={typePassoword}
-                    value={registerUsers.password}
+                    value={registerUsers.phone}
                     onChange={handleChangeRegisterUser}
-                    placeholder="Contraseña"
-                    className="w-full bg-gray-50 border-0 text-quaternary-color pr-10 focus:outline-none"
+                    required
                   />
-                  <i
-                    className={`${eyePassword} absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer`}
-                    aria-hidden={watchPassword ? "false" : "true"}
-                    onClick={() => setWatchPassword(!watchPassword)}
-                  ></i>
+                  <span
+                    ref={feedbackRegexPhone}
+                    className="text-xs font-semibold"
+                  ></span>
                 </div>
-                <p className="text-center text-base" ref={feedbackPassword}></p>
+                <div className="col-span-2">
+                  <label
+                    htmlFor="password"
+                    className="block mb-1 text-base font-bold text-primary "
+                  >
+                    Contraseña
+                  </label>
+                  <div className="relative">
+                    <input
+                      id="password"
+                      type={typePassword}
+                      placeholder="Crea una contraseña"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                      name="password"
+                      value={registerUsers.password}
+                      onChange={handleChangeRegisterUser}
+                      required
+                    />
+                    <i
+                      onClick={() => setWatchPassword(!watchPassword)}
+                      className={`${eyePassword} absolute top-4 right-3`}
+                    ></i>
+                  </div>
+                  <span
+                    ref={feedbackPassword}
+                    className="text-xs font-semibold"
+                  ></span>
+                </div>
               </div>
-              <div className="flex justify-center text-center">
-                {successMessage && (
-                  <p className="text-green-500 text-sm">{successMessage}</p>
-                )}
-                {errorMessage && (
-                  <p className="text-red-500 text-sm">{errorMessage}</p>
-                )}
-              </div>
+              {successMessage && (
+                <div className="text-center text-sm text-green-600 font-bold">
+                  {successMessage}
+                </div>
+              )}
+              {errorMessage && (
+                <div className="text-center text-sm text-red-600 font-bold">
+                  {errorMessage}
+                </div>
+              )}
               <button
                 type="submit"
-                className="mt-4 w-full text-white bg-[#277400] hover:bg-[#277400] focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 text-center"
-                style={{
-                  background:
+                className="w-full bg-primary hover:bg-primary-hover text-white text-lg font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline mt-3 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                disabled={
+                  !(
                     documentEvent &&
                     nameEvent &&
                     lastNamesEvent &&
                     emailEvent &&
                     phoneEvent &&
                     passwordEvent
-                      ? "black"
-                      : "rgba(0, 0, 0, 0.2)",
-                  pointerEvents:
-                    documentEvent &&
-                    nameEvent &&
-                    lastNamesEvent &&
-                    emailEvent &&
-                    phoneEvent &&
-                    passwordEvent
-                      ? "auto"
-                      : "none",
-                  color:
-                    documentEvent &&
-                    nameEvent &&
-                    lastNamesEvent &&
-                    emailEvent &&
-                    phoneEvent &&
-                    passwordEvent
-                      ? "white"
-                      : "black",
-                }}
+                  )
+                }
               >
-                Registrarme
+                Crear cuenta
               </button>
             </form>
           </div>
         </section>
       </main>
-      <footer>
-        <p className=" text-black font-medium text-sm text-center">
-          ¿Ya tienes una cuenta?{" "}
-          <a href="/auth/iniciarsesion" className="text-primary">
-            Iniciar sesión
-          </a>
-        </p>
-      </footer>
     </div>
   );
 }

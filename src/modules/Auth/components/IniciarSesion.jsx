@@ -97,7 +97,7 @@ export function IniciarSesion() {
   }
 
   const regexDocument = (document) => {
-    const documentRegex = /^[0-9]{1,9}$/;
+    const documentRegex = /^[0-9]{1,16}$/;
     const documentHasCorrectRegex = documentRegex.test(document);
     if (!documentHasCorrectRegex) {
       documentRef.current.textContent = "Documento inválido";
@@ -171,7 +171,7 @@ export function IniciarSesion() {
                   value={loginUsers.document}
                   onChange={handleChangeLogin}
                   name="document"
-                  pattern="[0-9]+"
+                  pattern="[0-9]{1,16}"
                   placeholder="Ingresa tu numero de documento"
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   required

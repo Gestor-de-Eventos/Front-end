@@ -1,6 +1,15 @@
-import logoVerde from "@/assets/img/logo-verde.png";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  User,
+} from "@nextui-org/react";
 
-const NavSideBar = ({ children }) => {
+import logoVerde from "@/assets/img/logo-verde.png";
+import ItemsList from "./ItemsList.jsx";
+
+const NavSideBar = () => {
   return (
     <div>
       <nav class="fixed top-0 z-50 w-full bg-white shadow-md border-b border-gray-300">
@@ -40,58 +49,53 @@ const NavSideBar = ({ children }) => {
                 </span>
               </a>
             </div>
-            <div class="flex items-center">
-              <button
-                type="button"
-                class="flex items-center text-sm text-gray-800 bg-gray-100 rounded-full hover:bg-gray-200 focus:ring-4 focus:ring-gray-300"
-                aria-expanded="false"
-                data-dropdown-toggle="dropdown-user"
-              >
-                <span class="sr-only">Abrir menu</span>
-                <img
-                  class="w-8 h-8 rounded-full"
-                  src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                  alt="user photo"
+            <Dropdown placement="bottom-start">
+              <DropdownTrigger>
+                <User
+                  as="button"
+                  avatarProps={{
+                    src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+                  }}
+                  className="transition-transform"
+                  name="FA"
                 />
-              </button>
-              <div
-                class="hidden z-50 my-4 mr-3 text-base list-none bg-white divide-y divide-gray-100 rounded shadow"
-                id="dropdown-user"
+              </DropdownTrigger>
+              <DropdownMenu
+                aria-label="User Actions"
+                variant="flat"
+                className="divide-y"
               >
-                <div class="px-4 py-3">
-                  <p class="text-sm text-gray-900">Admin</p>
-                  <p class="text-sm font-medium text-gray-500 truncate">
-                    Admin@admin
-                  </p>
-                </div>
-                <ul class="py-1">
-                  <li>
-                    <a
-                      href="#"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                <DropdownItem key="profile" className="h-14 gap-2 border-b ">
+                  <User
+                    as="button"
+                    avatarProps={{
+                      src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+                    }}
+                    className="transition-transform"
+                    description="@Falzate"
+                    name="Felipe Alzate"
+                  />
+                </DropdownItem>
+                <DropdownItem key="profile">Perfil</DropdownItem>
+                <DropdownItem
+                  key="logout"
+                  color="danger"
+                  className="flex bg-red-100 mt-2"
+                >
+                  <div className="flex items-center justify-between">
+                    <span>Cerrar sesion</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-4 h-4 ms-2"
                     >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Perfil
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Cerrar sesión
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+                      <path d="M5 2H19C19.5523 2 20 2.44772 20 3V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V3C4 2.44772 4.44772 2 5 2ZM9 11V8L4 12L9 16V13H15V11H9Z"></path>
+                    </svg>
+                  </div>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </div>
         </div>
       </nav>
@@ -102,7 +106,42 @@ const NavSideBar = ({ children }) => {
         aria-label="Sidebar"
       >
         <div class="h-full px-3 pb-4 overflow-y-auto">
-          <ul class="space-y-2 font-medium">{children}</ul>
+          <ul class="space-y-2 font-medium">
+            <ItemsList
+              href={"/admin/"}
+              logo="ri-dashboard-horizontal-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
+              title="Panel"
+            />
+            <ItemsList
+              href={"/admin/espacios"}
+              logo="ri-road-map-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
+              title="Espacios"
+            />
+            <ItemsList
+              href={"/admin/solicitudes"}
+              logo="ri-inbox-2-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
+              title="Solucitudes"
+            >
+              <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-white bg-primary rounded-full">
+                3
+              </span>
+            </ItemsList>
+            <ItemsList
+              href={"/admin/inventario"}
+              logo="ri-pencil-ruler-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
+              title="Inventario"
+            />
+            <ItemsList
+              href={"/admin/insumos"}
+              logo="ri-compasses-2-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
+              title="Insumos"
+            />
+            <ItemsList
+              href={"/admin/organizadores"}
+              logo="ri-team-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
+              title="Organizadores"
+            />
+          </ul>
         </div>
       </aside>
     </div>
