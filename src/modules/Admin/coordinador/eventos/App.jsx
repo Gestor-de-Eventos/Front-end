@@ -8,6 +8,8 @@ import {
   TableCell,
   Input,
   Button,
+  Link,
+  Tooltip,
   DropdownTrigger,
   Dropdown,
   DropdownMenu,
@@ -16,19 +18,30 @@ import {
   User,
   Pagination,
 } from "@nextui-org/react";
-import { VerticalDotsIcon } from "./VerticalDotsIcon";
 import { SearchIcon } from "./SearchIcon";
 import { ChevronDownIcon } from "./ChevronDownIcon";
-import { columns, users, statusOptions } from "./data";
-import { capitalize } from "./utils";
+import { columns, events, statusOptions } from "../utils/data";
+import { capitalize } from "../utils/utils";
+import { EyeIcon } from "./EyeIcon";
+import { DeleteIcon } from "./DeleteIcon";
 
+// Mapa de colores para los estados
 const statusColorMap = {
-  aceptado: "success",
-  pendiente: "warning",
-  rechazado: "danger",
+  Aceptado: "success",
+  Pendiente: "warning",
+  Rechazado: "secondary",
+  Finalizado: "danger",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "rol", "event", "status", "actions"];
+// Columnas visibles por defecto
+const INITIAL_VISIBLE_COLUMNS = [
+  "name",
+  "event",
+  "startDate",
+  "endDate",
+  "status",
+  "actions",
+];
 
 export default function App() {
   const [filterValue, setFilterValue] = React.useState("");
@@ -40,7 +53,7 @@ export default function App() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState({
     column: "status",
-    direction: "descending",
+    direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
 
@@ -55,24 +68,29 @@ export default function App() {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...users];
+    let filteredEvents = [...events];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase())
+      filteredEvents = filteredEvents.filter(
+        (event) =>
+          event.user.name.toLowerCase().includes(filterValue.toLowerCase()) ||
+          event.name.toLowerCase().includes(filterValue.toLowerCase()) ||
+          (event.space &&
+            event.space.toLowerCase().includes(filterValue.toLowerCase()))
       );
     }
+
     if (
       statusFilter !== "all" &&
       Array.from(statusFilter).length !== statusOptions.length
     ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
+      filteredEvents = filteredEvents.filter((event) =>
+        Array.from(statusFilter).includes(event.status)
       );
     }
 
-    return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+    return filteredEvents;
+  }, [events, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -93,32 +111,33 @@ export default function App() {
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+  const renderCell = React.useCallback((event, columnKey) => {
+    const cellValue = event[columnKey];
+
+    // Define el color de fondo según el tipo de evento
+    const cellBgClass =
+      event.type === "globalEvent" ? "bg-blue-100" : "bg-green-100";
 
     switch (columnKey) {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
-            name={cellValue}
+            avatarProps={{ radius: "lg", src: event.user.avatar }}
+            name={event.user.name}
+            description={event.user.email}
           ></User>
         );
-      case "role":
+      case "event":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-            <p className="text-bold text-tiny capitalize text-default-400">
-              {user.team}
-            </p>
+            <p className="text-bold text-small capitalize">{event.name}</p>
           </div>
         );
       case "status":
         return (
           <Chip
             className="capitalize"
-            color={statusColorMap[user.status]}
+            color={statusColorMap[event.status]}
             size="sm"
             variant="flat"
           >
@@ -128,24 +147,23 @@ export default function App() {
       case "actions":
         return (
           <div className="relative flex justify-center items-center gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-300" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem>Ver evento</DropdownItem>
-                <DropdownItem>Editar evento</DropdownItem>
-                <DropdownItem>Eliminar evento</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            <Tooltip content="Ver información" className="bg-secondary text-white">
+              <Button
+                href={`/admin/coordinador/eventos/${event.id}`}
+                as="a"
+                isIconOnly
+                className="bg-green-700 hover:bg-green-800"
+              >
+                <EyeIcon className="w-6 h-6 text-white " />
+              </Button>
+            </Tooltip>
           </div>
         );
       default:
         return cellValue;
     }
   }, []);
+
   const onRowsPerPageChange = React.useCallback((e) => {
     setRowsPerPage(Number(e.target.value));
     setPage(1);
@@ -172,13 +190,14 @@ export default function App() {
           <Input
             isClearable
             className="w-full sm:max-w-[44%]"
-            placeholder="Buscar por nombre..."
+            placeholder="Buscar usuario, evento o espacio..."
             startContent={<SearchIcon />}
             value={filterValue}
             onClear={() => onClear()}
             onValueChange={onSearchChange}
           />
-          <div className="flex gap-3">
+          <div className="flex items-center gap-3">
+            <span className="font-bold text-default-800">Filtros:</span>
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button
@@ -221,7 +240,7 @@ export default function App() {
                 onSelectionChange={setVisibleColumns}
               >
                 {columns.map((column) => (
-                  <DropdownItem key={column.uid} className="capitalize">
+                  <DropdownItem key={column.uid}>
                     {capitalize(column.name)}
                   </DropdownItem>
                 ))}
@@ -229,82 +248,73 @@ export default function App() {
             </Dropdown>
           </div>
         </div>
-        <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">
-            Total {users.length} usuarios
-          </span>
-          <label className="flex items-center text-default-400 text-small">
-            Filas por página:
-            <select
-              className="bg-transparent outline-none text-default-400 text-small"
-              onChange={onRowsPerPageChange}
-            >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-            </select>
-          </label>
+        <div className="flex justify-end items-center gap-2">
+          <span className="text-default-400 text-small">Filas por página:</span>
+          <select
+            className="max-w-full rounded-lg bg-default-100 text-default-900 text-small font-bold"
+            onChange={onRowsPerPageChange}
+            value={rowsPerPage}
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={15}>15</option>
+          </select>
         </div>
       </div>
     );
-  }, [
-    filterValue,
-    statusFilter,
-    visibleColumns,
-    onRowsPerPageChange,
-    users.length,
-    onSearchChange,
-    hasSearchFilter,
-  ]);
+  }, [filterValue, statusFilter, visibleColumns, rowsPerPage]);
 
   const bottomContent = React.useMemo(() => {
     return (
-      <div className="py-2 px-2 flex gap-4 justify-center items-center">
+      <div className="py-2 px-2 flex justify-between items-center border-t border-divider">
+        <span className="w-[30%] text-small text-default-400">
+          Total {filteredItems.length} resultados
+        </span>
         <Pagination
-          isCompact
           showControls
-          showShadow
-          color="primary"
+          isCompact
+          isSimple
           page={page}
           total={pages}
-          onChange={setPage}
+          onChange={(page) => setPage(page)}
         />
       </div>
     );
-  }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
+  }, [page, filteredItems]);
 
   return (
     <Table
       aria-label="Example table with custom cells, pagination and sorting"
-      isHeaderSticky
-      bottomContent={bottomContent}
-      bottomContentPlacement="outside"
-      classNames={{
-        wrapper: "max-h-[362px]",
-      }}
-      selectedKeys={selectedKeys}
       sortDescriptor={sortDescriptor}
       topContent={topContent}
-      topContentPlacement="outside"
-      onSelectionChange={setSelectedKeys}
+      bottomContent={bottomContent}
       onSortChange={setSortDescriptor}
     >
       <TableHeader columns={headerColumns}>
         {(column) => (
           <TableColumn
             key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
             allowsSorting={column.sortable}
+            align={column.uid === "actions" ? "center" : "start"}
           >
             {column.name}
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"Usuario no encontrado"} items={sortedItems}>
-        {(item) => (
-          <TableRow key={item.id}>
+      <TableBody
+        emptyContent={"No hay eventos para mostrar"}
+        items={sortedItems}
+      >
+        {(event) => (
+          <TableRow>
             {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+              <TableCell
+                className={
+                  event.type === "globalEvent" ? "bg-gray-100" : "bg-white"
+                }
+              >
+                {renderCell(event, columnKey)}
+              </TableCell>
             )}
           </TableRow>
         )}

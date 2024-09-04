@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import logoVerde from "../../../assets/img/logo-verde.png";
+import logoVerde from "../../assets/img/logo-verde.png";
 
 export function Registrar() {
   const [registerUsers, setRegisterUsers] = useState({
@@ -33,8 +33,8 @@ export function Registrar() {
 
   const typePassword = watchPassword ? "text" : "password";
   const eyePassword = watchPassword
-    ? "fa-solid fa-eye cursor-pointer hover:bg-sitenary-color rounded-full"
-    : "fa-solid fa-eye-slash cursor-pointer hover:bg-sitenary-color rounded-full";
+    ? "ri-eye-fill cursor-pointer hover:bg-sitenary-color rounded-full text-xl"
+    : "ri-eye-off-fill cursor-pointer hover:bg-sitenary-color rounded-full text-xl";
 
   const handleChangeRegisterUser = (e) => {
     const { name, value } = e.target;
@@ -367,7 +367,7 @@ export function Registrar() {
                     />
                     <i
                       onClick={() => setWatchPassword(!watchPassword)}
-                      className={`${eyePassword} absolute top-4 right-3`}
+                      className={`${eyePassword} absolute top-3 right-3`}
                     ></i>
                   </div>
                   <span
@@ -406,6 +406,14 @@ export function Registrar() {
           </div>
         </section>
       </main>
+      <footer>
+        <p className=" text-black font-medium text-sm text-center">
+          ¿Ya tienes una cuenta?{" "}
+          <a href="/auth/iniciarsesion" className="text-primary">
+            Iniciar sesión
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }

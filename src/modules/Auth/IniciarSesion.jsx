@@ -1,8 +1,14 @@
 import { useState, useRef, useEffect } from "react";
-import logoVerde from "../../../assets/img/logo-verde.png";
+import logoVerde from "../../assets/img/logo-verde.png";
+import { Input } from "@nextui-org/input";
+import { EyeSlashFilledIcon } from "./components/EyeSlashFilledIcon";
+import { EyeFilledIcon } from "./components/EyeFilledIcon";
 
 export function IniciarSesion() {
-  const [setSession] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const toggleVisibility = () => setIsVisible(!isVisible);
+
+  const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -129,7 +135,7 @@ export function IniciarSesion() {
     <div className="flex flex-col items-center justify-center py-4 px-4 gap-6 max-w-96 m-auto">
       <a
         href="/"
-        className="flex gap-1 items-center absolute top-6 left-4 bg-primary text-white p-2 rounded-lg"
+        className="flex gap-1 items-center absolute -z-10 top-6 left-4 bg-primary text-white p-2 rounded-lg"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +145,7 @@ export function IniciarSesion() {
         >
           <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
         </svg>
-        Regresar
+        Ir al inicio
       </a>
       <header>
         <img
@@ -165,7 +171,8 @@ export function IniciarSesion() {
                 >
                   Número de documento
                 </label>
-                <input
+                <Input
+                  size="lg"
                   type="number"
                   id="id"
                   value={loginUsers.document}
@@ -173,7 +180,7 @@ export function IniciarSesion() {
                   name="document"
                   pattern="[0-9]{1,16}"
                   placeholder="Ingresa tu numero de documento"
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-2xl block w-full"
                   required
                 />
                 <p ref={documentRef}></p>
@@ -185,15 +192,31 @@ export function IniciarSesion() {
                 >
                   Contraseña
                 </label>
-                <input
-                  type="password"
+
+                <Input
+                  size="lg"
                   id="password"
                   name="password"
+                  placeholder="Ingresa tu contraseña"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-2xl block w-full "
                   value={loginUsers.password}
                   onChange={handleChangeLogin}
-                  placeholder="Ingresa tu contraseña"
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full px-2.5 py-3"
                   required
+                  endContent={
+                    <button
+                      className="focus:outline-none"
+                      type="button"
+                      onClick={toggleVisibility}
+                      aria-label="toggle password visibility"
+                    >
+                      {isVisible ? (
+                        <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                      ) : (
+                        <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                      )}
+                    </button>
+                  }
+                  type={isVisible ? "text" : "password"}
                 />
                 <p ref={passwordRef}></p>
               </div>
@@ -207,19 +230,13 @@ export function IniciarSesion() {
               </div>
               <button
                 type="submit"
-                className="mt-4 w-full text-white bg-[#277400] hover:bg-[#277400] focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 text-center"
-                style={{
-                  background:
+                className={`mt-4 w-full  font-bold rounded-lg text-sm px-5 py-2.5 text-center
+                  ${
                     regexDocumentState && regexPasswordState
-                      ? "black"
-                      : "rgba(0, 0, 0, 0.2)",
-                  pointerEvents:
-                    regexDocumentState && regexPasswordState ? "auto" : "none",
-                  color:
-                    regexDocumentState && regexPasswordState
-                      ? "white"
-                      : "black",
-                }}
+                      ? "bg-[#277400] text-white hover:bg-[#277400]"
+                      : "bg-gray-300 text-black cursor-not-allowed"
+                  }`}
+                disabled={!(regexDocumentState && regexPasswordState)}
               >
                 Iniciar sesión
               </button>
@@ -234,8 +251,11 @@ export function IniciarSesion() {
       <footer>
         <p className=" text-black font-medium text-sm text-center">
           ¿No tienes una cuenta?{" "}
-          <a href="/auth/registrarse" className="text-primary">
-            Registrate
+          <a
+            href="/auth/registrarse"
+            className="text-primary font-medium text-sm"
+          >
+            Regístrate
           </a>
         </p>
       </footer>

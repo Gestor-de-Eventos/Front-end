@@ -1,0 +1,66 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import NavSideBar from "@/modules/Admin/coordinador/NavSideBar";
+import { events } from "@/modules/Admin/coordinador/utils/data";
+
+export async function getStaticPaths() {
+  // Aquí defines las rutas dinámicas que Astro debe generar
+  const eventos = events; // Puedes ajustar esto para obtener eventos desde una API o base de datos
+  const paths = eventos.map((evento) => ({
+    params: { evento: evento.id.toString() },
+  }));
+
+  return paths; // Debe devolver un array de objetos de parámetros
+}
+
+const { evento } = Astro.params;
+const event = events.find((event) => event.id.toString() === evento);
+
+if (!event) {
+  return Astro.redirect("/admin/coordinador/eventos");
+}
+---
+
+<Layout title="Coordinador">
+  <NavSideBar client:load />
+
+  <div class="p-4 sm:ml-56">
+    <div class="mt-12 p-6">
+      <div class="flex items-center space-x-4 mb-6">
+        <img
+          src={event.user.avatar}
+          alt="Avatar del usuario"
+          class="w-16 h-16 rounded-full object-cover border border-gray-300"
+        />
+        <div>
+          <h1 class="text-2xl font-semibold text-gray-800">
+            {event.user.name}
+          </h1>
+          <h2 class="text-lg font-medium text-gray-600">{event.user.email}</h2>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <header class="mb-4">
+          <h3 class="text-xl font-semibold text-gray-800 mb-1">
+            {event.name}
+          </h3>
+          <p class="text-sm font-medium text-gray-600">{event.status}</p>
+        </header>
+        <div class="space-y-2">
+          <p class="text-gray-700">
+            <strong>Fecha de inicio:</strong>
+            {event.startDate}
+          </p>
+          <p class="text-gray-700">
+            <strong>Fecha de fin:</strong>
+            {event.endDate}
+          </p>
+          <p class="text-gray-700">
+            <strong>Supplies:</strong>
+            {event.supplies}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

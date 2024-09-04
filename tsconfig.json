@@ -6,6 +6,10 @@
       "@/*": ["./src/*"]
     },
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "noUnusedLocals": true, // Marca variables no utilizadas en el código
+    "noUnusedParameters": true, // Marca parámetros no utilizados en funciones
+    "strict": true, // Habilita todas las opciones de verificación estricta
+    "skipLibCheck": true // Opcional: Omite la verificación de tipos en archivos de declaración
   }
 }

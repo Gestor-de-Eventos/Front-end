@@ -1,0 +1,15 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import NavSideBar from "@/modules/Admin/coordinador/NavSideBar";
+import App from "@/modules/Admin/coordinador/eventos/App";
+---
+
+<Layout title="Coordinador">
+  <NavSideBar client:load />
+  
+  <div class="p-4 sm:ml-56">
+    <div class="mt-12 p-4 h-full">
+      <App client:load />
+    </div>
+  </div>
+</Layout>

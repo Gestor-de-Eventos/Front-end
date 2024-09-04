@@ -18,14 +18,14 @@ export default function NavBar() {
           <a
             href="/auth/iniciarsesion"
             type="button"
-            className="text-black bg-white focus:outline-none font-normal rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+            className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
           >
             Iniciar sesión
           </a>
           <a
             href="/auth/registrarse"
             type="button"
-            className="text-black bg-white focus:outline-none font-normal rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+            className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
           >
             Registrarse
           </a>

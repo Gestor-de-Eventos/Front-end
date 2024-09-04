@@ -12,7 +12,7 @@ import ItemsList from "./ItemsList.jsx";
 const NavSideBar = () => {
   return (
     <div>
-      <nav class="fixed top-0 z-50 w-full bg-white shadow-md border-b border-gray-300">
+      <nav class="fixed top-0 z-30 w-full bg-white shadow-md border-b border-gray-300">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
           <div class="flex items-center justify-between">
             <div class="flex items-center justify-start rtl:justify-end">
@@ -45,7 +45,7 @@ const NavSideBar = () => {
                   alt="FlowBite Logo"
                 />
                 <span class="self-center text-xl font-bold sm:text-2xl text-gray-800">
-                  Coordinador
+                  Instructor
                 </span>
               </a>
             </div>
@@ -103,49 +103,35 @@ const NavSideBar = () => {
 
       <aside
         id="sidebar"
-        class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
+        class="fixed top-0 left-0 z-20 w-56 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
         aria-label="Sidebar"
       >
         <div class="h-full px-3 pb-4 overflow-y-auto">
           <ul class="space-y-2 font-bold">
             <ItemsList
-              href={"/admin/"}
+              href={"/admin/instructor"}
               logo="ri-dashboard-horizontal-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
               title="Panel"
             />
             <ItemsList
-              href={"/admin/espacios"}
+              href={"/admin/instructor/espacios"}
               logo="ri-road-map-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
               title="Espacios"
             />
             <ItemsList
-              href={"/admin/solicitudes"}
-              logo="ri-mail-unread-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
-              title="Solucitudes"
-            >
-              <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-white bg-primary rounded-full">
-                3
-              </span>
-            </ItemsList>
-            <ItemsList
-              href={"/admin/eventos"}
+              href={"/admin/instructor/eventos"}
               logo="ri-inbox-2-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
               title="Eventos"
             ></ItemsList>
             <ItemsList
-              href={"/admin/inventario"}
+              href={"/admin/instructor/inventario"}
               logo="ri-pencil-ruler-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
               title="Inventario"
             />
             <ItemsList
-              href={"/admin/insumos"}
+              href={"/admin/instructor/insumos"}
               logo="ri-compasses-2-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
               title="Insumos"
-            />
-            <ItemsList
-              href={"/admin/organizadores"}
-              logo="ri-team-fill flex w-5 h-5 text-xl justify-center items-center text-primary transition duration-75 group-hover:text-gray-600"
-              title="Organizadores"
             />
           </ul>
         </div>
