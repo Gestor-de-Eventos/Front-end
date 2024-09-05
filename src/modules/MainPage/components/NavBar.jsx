@@ -5,12 +5,27 @@ export default function NavBar() {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
-    const sessionData = localStorage.getItem("session");
-    console.log(sessionData);
-    if (sessionData) {
-      const session = JSON.parse(sessionData);
-      setSession(session);
-    }
+    const updateSession = () => {
+      const sessionData = localStorage.getItem("session");
+      console.log("Session data from localStorage:", sessionData); // Imprime los datos crudos del localStorage
+
+      if (sessionData) {
+        try {
+          const session = JSON.parse(sessionData);
+          setSession(session);
+          console.log("Parsed session object:", session); // Imprime el objeto de sesión parseado
+        } catch (error) {
+          console.error("Error parsing session data:", error);
+        }
+      } else {
+        console.log("No session data found in localStorage.");
+      }
+    };
+
+    updateSession();
+    window.addEventListener("storage", updateSession);
+
+    return () => window.removeEventListener("storage", updateSession);
   }, []);
 
   return (
@@ -33,24 +48,23 @@ export default function NavBar() {
           ) : session && session.role === "Instructor" ? (
             <h1 className="bg-white">Instructor</h1>
           ) : (
-            <h1 className="bg-white">usuario</h1>
+            <div>
+              <a
+                href="/auth/iniciarsesion"
+                type="button"
+                className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+              >
+                Iniciar sesión
+              </a>
+              <a
+                href="/auth/registrarse"
+                type="button"
+                className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+              >
+                Registrarse
+              </a>
+            </div>
           )}
-          <div>
-            <a
-              href="/auth/iniciarsesion"
-              type="button"
-              className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
-            >
-              Iniciar sesión
-            </a>
-            <a
-              href="/auth/registrarse"
-              type="button"
-              className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
-            >
-              Registrarse
-            </a>
-          </div>
         </div>
       </div>
     </nav>
