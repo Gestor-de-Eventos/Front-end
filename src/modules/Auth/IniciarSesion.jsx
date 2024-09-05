@@ -24,6 +24,7 @@ export function IniciarSesion() {
           }
         );
         const data = await response.json();
+        console.log(data);
         if (data.active) {
           setSession(data.session);
           window.location.href = "/";
