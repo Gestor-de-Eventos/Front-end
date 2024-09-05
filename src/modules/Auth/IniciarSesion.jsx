@@ -136,7 +136,7 @@ export function IniciarSesion() {
     <div className="flex flex-col items-center justify-center py-4 px-4 gap-6 max-w-96 m-auto">
       <a
         href="/"
-        className="flex gap-1 items-center absolute -z-10 top-6 left-4 bg-primary text-white p-2 rounded-lg"
+        className="flex gap-1 items-center absolute top-6 left-4 bg-primary text-white p-2 rounded-lg"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
