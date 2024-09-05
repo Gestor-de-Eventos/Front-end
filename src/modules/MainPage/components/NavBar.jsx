@@ -1,49 +1,21 @@
+import { useEffect, useState } from "react";
 import logoBlanco from "@/assets/img/logo-blanco.png";
-import { useState, useEffect } from "react";
 
 export default function NavBar() {
-  const [session, setSession] = useState({
-    document: null,
-    role: null,
-  });
-
-  const checkSession = async () => {
-    try {
-      console.log("Starting session check..."); // Log start
-      const response = await fetch(
-        `https://eventos.sharepointeros.com/api/auth/check-my-session`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      console.log("Response status:", response.status); // Log status code
-
-      // Check if response is OK before proceeding
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Response data:", data); // Log the response data
-        setSession({
-          document: data.document,
-          role: data.role,
-        });
-      } else {
-        console.error("Failed to fetch session:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error fetching session:", error);
-    }
-  };
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
-    checkSession();
+    const sessionData = localStorage.getItem("session");
+    if (sessionData) {
+      const session = JSON.parse(sessionData);
+      if (session.document && session.role) {
+        setRole(session.role);
+      }
+    }
   }, []);
 
   return (
-    <nav className="bg-secondary sticky top-0 w-full z-20 start-0">
+    <nav className="bg-secondary sticky top-0 w-full z-20 start-0 ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-3 py-2">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
@@ -56,30 +28,32 @@ export default function NavBar() {
             SENA
           </span>
         </a>
+
         <div className="flex gap-1 md:gap-2">
-          {session && session.role === "Coordinador" ? (
-            <h1 className="bg-white">Coordinador</h1>
-          ) : session && session.role === "Instructor" ? (
-            <h1 className="bg-white">Instructor</h1>
-          ) : (
-            <h1 className="bg-white">usuario</h1>
+          {role === "Instructor" && (
+            <span className="text-white">Instructor</span>
           )}
-          <div>
-            <a
-              href="/auth/iniciarsesion"
-              type="button"
-              className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
-            >
-              Iniciar sesión
-            </a>
-            <a
-              href="/auth/registrarse"
-              type="button"
-              className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
-            >
-              Registrarse
-            </a>
-          </div>
+          {role === "Coordinador" && (
+            <span className="text-white">Coordinador</span>
+          )}
+          {!role && (
+            <>
+              <a
+                href="/auth/iniciarsesion"
+                type="button"
+                className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+              >
+                Iniciar sesión (no hay sesion)
+              </a>
+              <a
+                href="/auth/registrarse"
+                type="button"
+                className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+              >
+                Registrarse
+              </a>
+            </>
+          )}
         </div>
       </div>
     </nav>
