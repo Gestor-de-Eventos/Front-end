@@ -6,6 +6,7 @@ export default function NavBar() {
 
   useEffect(() => {
     const sessionData = localStorage.getItem("session");
+    console.log(sessionData);
     if (sessionData) {
       const session = JSON.parse(sessionData);
       if (session.document && session.role) {
