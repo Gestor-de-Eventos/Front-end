@@ -6,12 +6,11 @@ export default function NavBar() {
 
   useEffect(() => {
     const sessionData = localStorage.getItem("session");
+    console.log(sessionData);
     if (sessionData) {
       const session = JSON.parse(sessionData);
       setSession(session);
     }
-    console.log("Session data:", sessionData);
-    console.log("Session state:", session);
   }, []);
 
   return (
@@ -30,27 +29,28 @@ export default function NavBar() {
         </a>
         <div className="flex gap-1 md:gap-2">
           {session && session.role === "Coordinador" ? (
-            <h1>Coordinador</h1>
+            <h1 className="bg-white">Coordinador</h1>
           ) : session && session.role === "Instructor" ? (
-            <h1>Instructor</h1>
+            <h1 className="bg-white">Instructor</h1>
           ) : (
-            <div>
-              <a
-                href="/auth/iniciarsesion"
-                type="button"
-                className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
-              >
-                Iniciar sesión
-              </a>
-              <a
-                href="/auth/registrarse"
-                type="button"
-                className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
-              >
-                Registrarse
-              </a>
-            </div>
+            <h1 className="bg-white">usuario</h1>
           )}
+          <div>
+            <a
+              href="/auth/iniciarsesion"
+              type="button"
+              className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+            >
+              Iniciar sesión
+            </a>
+            <a
+              href="/auth/registrarse"
+              type="button"
+              className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+            >
+              Registrarse
+            </a>
+          </div>
         </div>
       </div>
     </nav>
