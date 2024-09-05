@@ -2,45 +2,39 @@ import logoBlanco from "@/assets/img/logo-blanco.png";
 import { useState, useEffect } from "react";
 
 export default function NavBar() {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState({
+    document: null,
+    role: null,
+  });
 
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const response = await fetch(
-          `https://eventos.sharepointeros.com/api/auth/check-my-session`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const data = await response.json();
-        console.log(data);
-        if (data.active) {
-          // Store session data in localStorage
-          localStorage.setItem("session", JSON.stringify(data.session));
-          setSession(data.session);
-        } else {
-          // Clear session data from localStorage if not active
-          localStorage.removeItem("session");
+  const checkSession = async () => {
+    try {
+      const response = await fetch(
+        `https://eventos.sharepointeros.com/api/auth/check-my-session`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      } catch (error) {
-        console.error(error);
+      );
+      const data = await response.json();
+      console.log(data);
+      if (response.status === 200) {
+        setSession({
+          document: data.document,
+          role: data.role,
+        });
       }
-    };
-
-    // Call checkSession on component mount
-    checkSession();
-  }, []);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Retrieve session data from localStorage
-    const storedSession = localStorage.getItem("session");
-    if (storedSession) {
-      setSession(JSON.parse(storedSession));
-    }
+    checkSession();
   }, []);
 
   return (
@@ -63,23 +57,24 @@ export default function NavBar() {
           ) : session && session.role === "Instructor" ? (
             <h1 className="bg-white">Instructor</h1>
           ) : (
-            <div>
-              <a
-                href="/auth/iniciarsesion"
-                type="button"
-                className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
-              >
-                Iniciar sesión
-              </a>
-              <a
-                href="/auth/registrarse"
-                type="button"
-                className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
-              >
-                Registrarse
-              </a>
-            </div>
+            <h1 className="bg-white">usuario</h1>
           )}
+          <div>
+            <a
+              href="/auth/iniciarsesion"
+              type="button"
+              className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+            >
+              Iniciar sesión
+            </a>
+            <a
+              href="/auth/registrarse"
+              type="button"
+              className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+            >
+              Registrarse
+            </a>
+          </div>
         </div>
       </div>
     </nav>
