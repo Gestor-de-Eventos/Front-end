@@ -2,21 +2,14 @@ import logoBlanco from "@/assets/img/logo-blanco.png";
 import { useState, useEffect } from "react";
 
 export default function NavBar() {
-  const [session, setSession] = useState({
-    document: null,
-    role: null,
-  });
+  const [session, setSession] = useState(null); // Initially, session is null
 
   useEffect(() => {
     const sessionData = localStorage.getItem("session");
     if (sessionData) {
       const session = JSON.parse(sessionData);
-      setSession({
-        document: session.document,
-        role: session.role,
-      });
+      setSession(session); // Set session directly
     }
-    console.log(sessionData);
   }, []);
 
   return (
@@ -34,21 +27,24 @@ export default function NavBar() {
           </span>
         </a>
         <div className="flex gap-1 md:gap-2">
-          <a
-            href="/auth/iniciarsesion"
-            type="button"
-            className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
-          >
-            Iniciar sesión
-          </a>
-          <a
-            href="/auth/registrarse"
-            type="button"
-            className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
-          >
-            Registrarse
-          </a>
-          {session.role === "Coordinador" ? (
+          {!session ? (
+            <>
+              <a
+                href="/auth/iniciarsesion"
+                type="button"
+                className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+              >
+                Iniciar sesión
+              </a>
+              <a
+                href="/auth/registrarse"
+                type="button"
+                className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center"
+              >
+                Registrarse
+              </a>
+            </>
+          ) : session.role === "Coordinador" ? (
             <a className="text-black bg-white focus:outline-none font-bold rounded-lg text-sm md:text-base px-3 py-2 md:px-4 md:py-2 text-center">
               Coordinador
             </a>
