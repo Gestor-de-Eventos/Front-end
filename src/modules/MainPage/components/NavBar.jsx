@@ -10,7 +10,8 @@ export default function NavBar() {
       const session = JSON.parse(sessionData);
       setSession(session);
     }
-    console.log(sessionData);
+    console.log("Session data:", sessionData);
+    console.log("Session state:", session);
   }, []);
 
   return (
@@ -28,9 +29,9 @@ export default function NavBar() {
           </span>
         </a>
         <div className="flex gap-1 md:gap-2">
-          {session.role === "Coordinador" ? (
+          {session && session.role === "Coordinador" ? (
             <h1>Coordinador</h1>
-          ) : session.role === "Instructor" ? (
+          ) : session && session.role === "Instructor" ? (
             <h1>Instructor</h1>
           ) : (
             <div>
