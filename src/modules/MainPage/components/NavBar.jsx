@@ -9,6 +9,7 @@ export default function NavBar() {
 
   const checkSession = async () => {
     try {
+      console.log("Starting session check..."); // Log start
       const response = await fetch(
         `https://eventos.sharepointeros.com/api/auth/check-my-session`,
         {
@@ -18,18 +19,22 @@ export default function NavBar() {
           },
         }
       );
-      const data = await response.json();
-      console.log(data);
-      if (response.status === 200) {
+
+      console.log("Response status:", response.status); // Log status code
+
+      // Check if response is OK before proceeding
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Response data:", data); // Log the response data
         setSession({
           document: data.document,
           role: data.role,
         });
+      } else {
+        console.error("Failed to fetch session:", response.statusText);
       }
     } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+      console.error("Error fetching session:", error);
     }
   };
 
