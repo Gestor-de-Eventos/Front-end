@@ -2,14 +2,21 @@ import logoBlanco from "@/assets/img/logo-blanco.png";
 import { useState, useEffect } from "react";
 
 export default function NavBar() {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState({
+    document: null,
+    role: null,
+  });
 
   useEffect(() => {
     const sessionData = localStorage.getItem("session");
     if (sessionData) {
       const session = JSON.parse(sessionData);
-      setSession(session);
+      setSession({
+        document: session.document,
+        role: session.role,
+      });
     }
+    console.log(sessionData);
   }, []);
 
   return (
