@@ -5,27 +5,42 @@ export default function NavBar() {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
-    const updateSession = () => {
-      const sessionData = localStorage.getItem("session");
-      console.log("Session data from localStorage:", sessionData); // Imprime los datos crudos del localStorage
-
-      if (sessionData) {
-        try {
-          const session = JSON.parse(sessionData);
-          setSession(session);
-          console.log("Parsed session object:", session); // Imprime el objeto de sesión parseado
-        } catch (error) {
-          console.error("Error parsing session data:", error);
+    const checkSession = async () => {
+      try {
+        const response = await fetch(
+          `https://eventos.sharepointeros.com/api/auth/check-my-session`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+        if (data.active) {
+          // Store session data in localStorage
+          localStorage.setItem("session", JSON.stringify(data.session));
+          setSession(data.session);
+        } else {
+          // Clear session data from localStorage if not active
+          localStorage.removeItem("session");
         }
-      } else {
-        console.log("No session data found in localStorage.");
+      } catch (error) {
+        console.error(error);
       }
     };
 
-    updateSession();
-    window.addEventListener("storage", updateSession);
+    // Call checkSession on component mount
+    checkSession();
+  }, []);
 
-    return () => window.removeEventListener("storage", updateSession);
+  useEffect(() => {
+    // Retrieve session data from localStorage
+    const storedSession = localStorage.getItem("session");
+    if (storedSession) {
+      setSession(JSON.parse(storedSession));
+    }
   }, []);
 
   return (
