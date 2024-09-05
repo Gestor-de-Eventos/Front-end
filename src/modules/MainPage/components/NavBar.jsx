@@ -1,5 +1,18 @@
 import logoBlanco from "@/assets/img/logo-blanco.png";
+import { useState, useEffect } from "react";
+
 export default function NavBar() {
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    const sessionData = localStorage.getItem("session");
+    if (sessionData) {
+      const session = JSON.parse(sessionData);
+      setSession(session);
+    }
+    console.log(sessionData);
+  }, []);
+
   return (
     <nav className="bg-secondary sticky top-0 w-full z-20 start-0 ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-3 py-2">
@@ -22,6 +35,13 @@ export default function NavBar() {
           >
             Iniciar sesión
           </a>
+          {session.role === "Coordinador" ? (
+            <h1>Coordinador</h1>
+          ) : session.role === "Instructor" ? (
+            <h1>Instructor</h1>
+          ) : (
+            <h1>Usuario</h1>
+          )}
           <a
             href="/auth/registrarse"
             type="button"
