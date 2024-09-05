@@ -28,16 +28,12 @@ export default function NavBar() {
           </span>
         </a>
         <div className="flex gap-1 md:gap-2">
-          {session ? (
-            <>
-              {session.role === "Coordinador" ? (
-                <h1>Coordinador</h1>
-              ) : session.role === "Instructor" ? (
-                <h1>Instructor</h1>
-              ) : null}
-            </>
+          {session.role === "Coordinador" ? (
+            <h1>Coordinador</h1>
+          ) : session.role === "Instructor" ? (
+            <h1>Instructor</h1>
           ) : (
-            <>
+            <div>
               <a
                 href="/auth/iniciarsesion"
                 type="button"
@@ -52,7 +48,7 @@ export default function NavBar() {
               >
                 Registrarse
               </a>
-            </>
+            </div>
           )}
         </div>
       </div>
